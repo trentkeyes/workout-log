@@ -22,9 +22,7 @@ export default function AddExercise(props) {
 
   const addExercise = (e) => {
     e.preventDefault();
-    console.log(props.selector);
   };
-  console.log(exercise);
   // reps / duration
   const reps = exercise.sets[exercise.sets.length - 1];
   return (

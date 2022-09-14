@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import ExerciseSelector from './ExerciseSelector';
+import Exercise from './Exercise';
+import AddSet from './AddSet';
 
 export default function Workout(props) {
   // recieve exercise selector
@@ -13,25 +15,12 @@ export default function Workout(props) {
 
   const entries = Object.entries(exercises);
 
-  const exerciseElements = entries.map((exercise) => {
-    const [name, sets] = exercise;
-    const setsElements = sets.map((set) => {
-      return (
-        <p>
-          {set.reps} @ {set.weight}
-        </p>
-      );
-    });
-    return (
-      <div>
-        <h4>{name}</h4>
-        {setsElements}
-      </div>
-    );
-  });
-
   console.log(exercises);
 
+  const exerciseElements = entries.map((exercise) => {
+    const [name, sets] = exercise;
+    return <Exercise name={name} sets={sets} setExercises={setExercises} />;
+  });
   return (
     <div className="workout--container">
       <h2>{info.date}</h2>

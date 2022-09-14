@@ -23,39 +23,53 @@ body {
 
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
 
 }
 
-.addMyExercise--form {
+.addMyExercise__form {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: .25em;
   margin: 1em;
 }
 
-.addMyExercise--form input, .addMyExercise--form button {
-  margin: .25em;
+.addMyExercise__form input,
+.addMyExercise__form button {
+  width: 50%;
+  max-width: 250px;
 }
 
-.addMyExercise--form input {
-  padding: .25em;
+.addMyExercise__form input {
+  font-size: 1.125rem;
+  text-indent: .5rem;
 }
 
 .workout--container {
   margin: .5em;
   padding: .5em;
   border: 1px solid #646cff;
-  border-radius: .25em;
+  border-radius: .25rem;
 }
 
-h1, h2, h3, h4, p {
+.set-input {
+  max-width: 1.5rem;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
   margin: 0;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 1em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
