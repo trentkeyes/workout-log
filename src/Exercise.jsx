@@ -31,7 +31,7 @@ export default function Exercise(props) {
     );
   });
   return (
-    <div>
+    <div className="workout__exercise">
       <h4>{name}</h4>
       {setsElements}
       <AddSet

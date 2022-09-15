@@ -22,9 +22,10 @@ export default function Workout(props) {
     return <Exercise name={name} sets={sets} setExercises={setExercises} />;
   });
   return (
-    <div className="workout--container">
+    <div className="workout__container">
       <h2>{info.date}</h2>
-      {exerciseElements}
+      <div className="exercises__container">{exerciseElements}</div>
+
       <ExerciseSelector
         exerciseOptions={props.exerciseOptions}
         setExercises={setExercises}

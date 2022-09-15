@@ -9,10 +9,7 @@ export default function ExerciseSelector({ exerciseOptions, setExercises }) {
     setExercises((prevExercises) => {
       return {
         ...prevExercises,
-        [exerciseForm]: [
-          { reps: 8, weight: 135 },
-          { reps: 6, weight: 140 },
-        ],
+        [exerciseForm]: [],
       };
     });
   };

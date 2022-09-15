@@ -3,29 +3,31 @@ import { useState } from 'react';
 export default function AddSet({ handleChange, vals, addSet }) {
   console.log(vals);
   return (
-    <div>
-      <div>
-        <label htmlFor="set-reps">Reps</label>
+    <div className="addSet__form">
+      <div className="addSet__reps">
         <input
           type="tel"
           className="set-input"
           name="reps"
+          placeholder="Reps"
           value={vals.reps}
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label htmlFor="set-weight">Weight</label>
+      <div className="addSet__weight">
         <input
           type="tel"
           className="set-input"
           name="weight"
+          placeholder="Weight"
           value={vals.weight}
           onChange={handleChange}
         />
       </div>
 
-      <button onClick={addSet}>Add Set</button>
+      <button className="addSet__btn" onClick={addSet}>
+        Add Set
+      </button>
     </div>
   );
 }
