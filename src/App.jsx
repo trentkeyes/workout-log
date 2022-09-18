@@ -64,14 +64,13 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <AddToMyExercises
-          handleChange={handleChange}
-          addMyExercise={addMyExercise}
-          exercise={formData.exercise}
-        />
-
         <Workout exerciseOptions={exerciseOptions} setWorkouts={setWorkouts} />
       </div>
+      <AddToMyExercises
+        handleChange={handleChange}
+        addMyExercise={addMyExercise}
+        exercise={formData.exercise}
+      />
 
       {/* <AddExercise
         logExercise={setExerciseLog}

@@ -2,14 +2,17 @@ import { useState } from 'react';
 import AddSet from './AddSet';
 
 export default function Exercise(props) {
-  const { name, sets, setExercises } = props;
+  const { name, sets, setWorkout } = props;
   const [newSetFormData, setNewSetFormData] = useState({});
 
   const addSet = () => {
-    setExercises((prev) => {
+    setWorkout((prev) => {
       return {
         ...prev,
-        [name]: [...prev[name], newSetFormData],
+        exercises: {
+          ...prev.exercises,
+          [name]: [...prev[name], newSetFormData],
+        },
       };
     });
   };
@@ -32,7 +35,7 @@ export default function Exercise(props) {
   });
   return (
     <div className="workout__exercise">
-      <h4>{name}</h4>
+      <h4 className="exercise__title">{name}</h4>
       {setsElements}
       <AddSet
         handleChange={handleChange}
