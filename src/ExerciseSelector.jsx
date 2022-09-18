@@ -1,22 +1,23 @@
 import { useState } from 'react';
 
-export default function ExerciseSelector({ exerciseOptions, setExercises }) {
+export default function ExerciseSelector({ exerciseOptions, setWorkout }) {
   const [exerciseForm, setExerciseForm] = useState('My exercises');
   const handleChange = (e) => {
     setExerciseForm(e.target.value);
   };
   const addExercise = () => {
-    setExercises((prevExercises) => {
+    setWorkout((prevWorkouts) => {
       return {
-        ...prevExercises,
+        ...prevWorkouts,
         [exerciseForm]: [],
       };
     });
   };
 
   return (
-    <div>
+    <div className="exerciseSelector__container">
       <select
+        className="exerciseSelector__selector"
         name="selectExercise"
         id="selectExercise"
         onChange={handleChange}
