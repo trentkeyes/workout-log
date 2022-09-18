@@ -32,7 +32,7 @@ export default function Exercise(props) {
   });
   return (
     <div className="workout__exercise">
-      <h4>{name}</h4>
+      <h4 className="exercise__title">{name}</h4>
       {setsElements}
       <AddSet
         handleChange={handleChange}

@@ -15,8 +15,9 @@ export default function ExerciseSelector({ exerciseOptions, setExercises }) {
   };
 
   return (
-    <div>
+    <div className="exerciseSelector__container">
       <select
+        className="exerciseSelector__selector"
         name="selectExercise"
         id="selectExercise"
         onChange={handleChange}

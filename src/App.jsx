@@ -6,7 +6,13 @@ import Workout from './Workout';
 
 function App() {
   const [formData, setFormData] = useState({ exercise: '' });
-  const [myExercises, setMyExercises] = useState(['squats', 'bench press']);
+  const [myExercises, setMyExercises] = useState([
+    'squats',
+    'bench press',
+    'lat pulldowns',
+    'bicep curls',
+    'deadlift',
+  ]);
   const [exerciseLog, setExerciseLog] = useState([]);
   const [workouts, setWorkouts] = useState({});
   const [workoutID, setWorkoutID] = useState(0);
@@ -15,15 +21,21 @@ function App() {
     setFormData({ exercise: e.target.value });
   };
 
-  const addWorkout = () => {
-    setWorkouts((prevWorkouts) => {
-      return {
-        ...prevWorkouts,
-        [workoutID]: [],
-      };
-    });
+  const incrementWorkoutID = () => {
     setWorkoutID((prevWorkoutID) => prevWorkoutID + 1);
   };
+
+  // const addWorkout = (workout) => {
+  //   setWorkouts((prevWorkouts) => {
+  //     return {
+  //       ...prevWorkouts,
+  //       [workout.id]: workout.id,
+  //     };
+  //   });
+  //   console.log(workouts);
+  // };
+
+  console.log(workouts);
 
   const addMyExercise = (e) => {
     e.preventDefault();
@@ -34,9 +46,7 @@ function App() {
     setMyExercises((prevMyExercises) => [...prevMyExercises, exercise]);
   };
 
-  const workoutEntries = Object.entries(workouts);
-
-  const workoutElements = workoutEntries.map(([key, value]) => {
+  const workoutElements = Object.entries(workouts).map(([key, value]) => {
     return (
       <Workout
         key={key}
@@ -64,19 +74,22 @@ function App() {
   return (
     <div className="App">
       <div className="container">
+        <Workout
+          exerciseOptions={exerciseOptions}
+          setWorkouts={setWorkouts}
+          workoutID={workoutID}
+        />
+
         <AddToMyExercises
           handleChange={handleChange}
           addMyExercise={addMyExercise}
           exercise={formData.exercise}
         />
-
-        <Workout exerciseOptions={exerciseOptions} setWorkouts={setWorkouts} />
       </div>
-
       {/* <AddExercise
-        logExercise={setExerciseLog}
-        selector={<ExerciseSelector exerciseOptions={exerciseOptions} />}
-      /> */}
+      logExercise={setExerciseLog}
+      selector={<ExerciseSelector exerciseOptions={exerciseOptions} />}
+    /> */}
     </div>
   );
 }
