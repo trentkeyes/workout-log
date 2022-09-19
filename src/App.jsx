@@ -25,16 +25,6 @@ function App() {
     setWorkoutID((prevWorkoutID) => prevWorkoutID + 1);
   };
 
-  // const addWorkout = (workout) => {
-  //   setWorkouts((prevWorkouts) => {
-  //     return {
-  //       ...prevWorkouts,
-  //       [workout.id]: workout.id,
-  //     };
-  //   });
-  //   console.log(workouts);
-  // };
-
   const addMyExercise = (e) => {
     e.preventDefault();
     const exercise = formData.exercise;
@@ -77,7 +67,6 @@ function App() {
           setWorkouts={setWorkouts}
           workoutID={workoutID}
         />
-
         <AddToMyExercises
           handleChange={handleChange}
           addMyExercise={addMyExercise}

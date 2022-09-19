@@ -25,6 +25,14 @@ export default function Workout(props) {
     });
   };
 
+  const removeExercise = (name) => {
+    setExercises((prev) => {
+      const copy = { ...prev };
+      delete copy[name];
+      return copy;
+    });
+  };
+
   const exerciseElements = Object.entries(exercises).map((exercise) => {
     const [name, sets] = exercise;
     return (
@@ -33,6 +41,7 @@ export default function Workout(props) {
         sets={sets}
         exercises={exercises}
         setExercises={setExercises}
+        removeExercise={removeExercise}
       />
     );
   });

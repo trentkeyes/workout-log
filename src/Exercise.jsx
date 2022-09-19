@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AddSet from './AddSet';
 
 export default function Exercise(props) {
-  const { name, sets, exercises, setExercises } = props;
+  const { name, sets, setExercises, removeExercise } = props;
   const [newSetFormData, setNewSetFormData] = useState({});
   const [setID, setSetID] = useState(0);
 
@@ -27,7 +27,6 @@ export default function Exercise(props) {
       };
     });
   };
-
   const removeSet = (id) => {
     setExercises((prev) => {
       return {
@@ -36,6 +35,7 @@ export default function Exercise(props) {
       };
     });
   };
+
   const setsElements = sets.map((set, index) => {
     return (
       <div>
@@ -48,7 +48,9 @@ export default function Exercise(props) {
   });
   return (
     <div className="workout__exercise">
-      <h4 className="exercise__title">{name}</h4>
+      <h4 className="exercise__title">
+        {name} <button onClick={() => removeExercise(name)}>Delete</button>
+      </h4>
       {setsElements}
       <AddSet
         handleChange={handleChange}
