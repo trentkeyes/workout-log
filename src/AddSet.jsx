@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 export default function AddSet({ handleChange, vals, addSet }) {
-  console.log(vals);
   return (
     <div className="addSet__form">
       <div className="addSet__reps">

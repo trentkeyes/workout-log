@@ -27,7 +27,14 @@ export default function Workout(props) {
 
   const exerciseElements = Object.entries(exercises).map((exercise) => {
     const [name, sets] = exercise;
-    return <Exercise name={name} sets={sets} setExercises={setExercises} />;
+    return (
+      <Exercise
+        name={name}
+        sets={sets}
+        exercises={exercises}
+        setExercises={setExercises}
+      />
+    );
   });
 
   return (

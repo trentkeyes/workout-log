@@ -2,16 +2,22 @@ import { useState } from 'react';
 import AddSet from './AddSet';
 
 export default function Exercise(props) {
-  const { name, sets, setExercises } = props;
+  const { name, sets, exercises, setExercises } = props;
   const [newSetFormData, setNewSetFormData] = useState({});
+  const [setID, setSetID] = useState(0);
 
   const addSet = () => {
+    const newSet = {
+      ...newSetFormData,
+      id: setID,
+    };
     setExercises((prev) => {
       return {
         ...prev,
-        [name]: [...prev[name], newSetFormData],
+        [name]: [...prev[name], newSet],
       };
     });
+    setSetID((prev) => prev + 1);
   };
   const handleChange = (e) => {
     setNewSetFormData((prev) => {
@@ -20,14 +26,24 @@ export default function Exercise(props) {
         [e.target.name]: e.target.value,
       };
     });
-    console.log('handling change', newSetFormData);
   };
 
-  const setsElements = sets.map((set) => {
+  const removeSet = (id) => {
+    setExercises((prev) => {
+      return {
+        ...prev,
+        [name]: prev[name].filter((set) => set.id !== id),
+      };
+    });
+  };
+  const setsElements = sets.map((set, index) => {
     return (
-      <p>
-        {set.reps} @ {set.weight}
-      </p>
+      <div>
+        <p>
+          {index + 1}: {set.reps} @ {set.weight}
+          <button onClick={() => removeSet(set.id)}>Delete</button>
+        </p>
+      </div>
     );
   });
   return (

@@ -35,8 +35,6 @@ function App() {
   //   console.log(workouts);
   // };
 
-  console.log(workouts);
-
   const addMyExercise = (e) => {
     e.preventDefault();
     const exercise = formData.exercise;
