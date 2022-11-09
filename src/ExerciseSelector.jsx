@@ -7,10 +7,14 @@ export default function ExerciseSelector({ exerciseOptions, setExercises }) {
   };
   const addExercise = () => {
     setExercises((prevExercises) => {
-      return {
-        ...prevExercises,
-        [exerciseForm]: [],
-      };
+      if (prevExercises[exerciseForm]) {
+        return { ...prevExercises };
+      } else {
+        return {
+          ...prevExercises,
+          [exerciseForm]: [],
+        };
+      }
     });
   };
 

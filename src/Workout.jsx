@@ -1,33 +1,31 @@
 import { useState } from 'react';
 import ExerciseSelector from './ExerciseSelector';
 import Exercise from './Exercise';
-import AddSet from './AddSet';
 
 export default function Workout(props) {
-  const { exerciseOptions, setWorkouts, workoutID, date, notes } = props;
+  const { exerciseOptions, setWorkouts, workoutID, date, time } = props;
 
   const [exercises, setExercises] = useState({});
-  // const [info, setInfo] = useState({
-  //   date: new Date().toLocaleDateString(),
-  //   notes: 'Feel the burn!',
-  // });
+  const [notes, setNotes] = useState('Pumped up!');
 
   const saveWorkout = () => {
     setWorkouts((prevWorkouts) => {
-      console.log({
-        ...prevWorkouts,
-        [workoutID]: {
-          exercises: exercises,
-        },
-      });
+      console.log('prevworkouts', prevWorkouts);
       return {
         ...prevWorkouts,
         [workoutID]: {
           exercises: exercises,
+          notes: notes,
+          date: date,
+          time: time,
         },
       };
     });
   };
+
+  const addExercise = () => {
+    
+  }
 
   const removeExercise = (name) => {
     setExercises((prev) => {
@@ -51,13 +49,22 @@ export default function Workout(props) {
     );
   });
 
+  const handleNotesChange = (e) => {
+    setNotes(e.target.value);
+  };
+
   return (
     <div className="workout__container">
       <div className="workout__header">
         <h2 className="workout__date">{date}</h2>
       </div>
       <div className="exercises__container">{exerciseElements}</div>
-      <textarea className="workout__notes" value={notes} rows="3" />
+      <textarea
+        className="workout__notes"
+        value={notes}
+        onChange={handleNotesChange}
+        rows="3"
+      />
       <div className="workout__addExercise-save">
         <ExerciseSelector
           exerciseOptions={exerciseOptions}

@@ -17,7 +17,7 @@ function App() {
   const [workouts, setWorkouts] = useState({});
   const [workoutID, setWorkoutID] = useState(0);
 
-  const handleChange = (e) => {
+  const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
   };
 
@@ -28,7 +28,7 @@ function App() {
         [workoutID]: {
           date: new Date().toLocaleDateString(),
           time: Date.now(),
-          notes: 'Feel the burn!',
+          notes: '',
           exercises: {},
         },
       };
@@ -60,6 +60,7 @@ function App() {
       <Workout
         key={key}
         date={value.date}
+        time={value.time}
         exercises={value.exercises}
         notes={value.notes}
         exerciseOptions={exerciseOptions}
@@ -90,7 +91,7 @@ function App() {
         /> */}
         <button onClick={addWorkout}>Add Workout</button>
         <AddToMyExercises
-          handleChange={handleChange}
+          handleChange={handleMyExerciseChange}
           addMyExercise={addMyExercise}
           exercise={formData.exercise}
         />

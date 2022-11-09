@@ -3,7 +3,10 @@ import AddSet from './AddSet';
 
 export default function Exercise(props) {
   const { name, sets, setExercises, removeExercise } = props;
-  const [newSetFormData, setNewSetFormData] = useState({});
+  const [newSetFormData, setNewSetFormData] = useState({
+    weight: '',
+    reps: '',
+  });
   const [setID, setSetID] = useState(0);
 
   const addSet = () => {
@@ -38,7 +41,7 @@ export default function Exercise(props) {
 
   const setsElements = sets.map((set, index) => {
     return (
-      <div>
+      <div key={index}>
         <p>
           {index + 1}: {set.reps} @ {set.weight}
           <button onClick={() => removeSet(set.id)}>Delete</button>
