@@ -4,21 +4,25 @@ import Exercise from './Exercise';
 import AddSet from './AddSet';
 
 export default function Workout(props) {
-  const { exerciseOptions, setWorkouts, workoutID } = props;
+  const { exerciseOptions, setWorkouts, workoutID, date, notes } = props;
 
   const [exercises, setExercises] = useState({});
-  const [info, setInfo] = useState({
-    date: new Date().toLocaleDateString(),
-    notes: 'Feel the burn!',
-  });
+  // const [info, setInfo] = useState({
+  //   date: new Date().toLocaleDateString(),
+  //   notes: 'Feel the burn!',
+  // });
 
   const saveWorkout = () => {
     setWorkouts((prevWorkouts) => {
+      console.log({
+        ...prevWorkouts,
+        [workoutID]: {
+          exercises: exercises,
+        },
+      });
       return {
         ...prevWorkouts,
         [workoutID]: {
-          date: info.date,
-          notes: info.notes,
           exercises: exercises,
         },
       };
@@ -37,6 +41,7 @@ export default function Workout(props) {
     const [name, sets] = exercise;
     return (
       <Exercise
+        key={name}
         name={name}
         sets={sets}
         exercises={exercises}
@@ -49,10 +54,10 @@ export default function Workout(props) {
   return (
     <div className="workout__container">
       <div className="workout__header">
-        <h2 className="workout__date">{info.date}</h2>
+        <h2 className="workout__date">{date}</h2>
       </div>
       <div className="exercises__container">{exerciseElements}</div>
-      <textarea className="workout__notes" value={info.notes} rows="3" />
+      <textarea className="workout__notes" value={notes} rows="3" />
       <div className="workout__addExercise-save">
         <ExerciseSelector
           exerciseOptions={exerciseOptions}

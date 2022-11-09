@@ -21,6 +21,21 @@ function App() {
     setFormData({ exercise: e.target.value });
   };
 
+  const addWorkout = () => {
+    setWorkouts((prevWorkouts) => {
+      return {
+        ...prevWorkouts,
+        [workoutID]: {
+          date: new Date().toLocaleDateString(),
+          time: Date.now(),
+          notes: 'Feel the burn!',
+          exercises: {},
+        },
+      };
+    });
+    incrementWorkoutID();
+  };
+
   const incrementWorkoutID = () => {
     setWorkoutID((prevWorkoutID) => prevWorkoutID + 1);
   };
@@ -34,6 +49,12 @@ function App() {
     setMyExercises((prevMyExercises) => [...prevMyExercises, exercise]);
   };
 
+  const exerciseOptions = myExercises.map((exercise) => (
+    <option key={exercise} value={exercise}>
+      {exercise}
+    </option>
+  ));
+
   const workoutElements = Object.entries(workouts).map(([key, value]) => {
     return (
       <Workout
@@ -41,15 +62,12 @@ function App() {
         date={value.date}
         exercises={value.exercises}
         notes={value.notes}
+        exerciseOptions={exerciseOptions}
+        setWorkouts={setWorkouts}
+        workoutID={key}
       />
     );
   });
-
-  const exerciseOptions = myExercises.map((exercise) => (
-    <option key={exercise} value={exercise}>
-      {exercise}
-    </option>
-  ));
 
   const exerciseSelector = (
     <ExerciseSelector exerciseOptions={exerciseOptions} />
@@ -59,14 +77,18 @@ function App() {
     e.preventDefault();
   };
 
+  console.log(workouts);
+
   return (
     <div className="App">
       <div className="container">
-        <Workout
+        {workoutElements}
+        {/* <Workout
           exerciseOptions={exerciseOptions}
           setWorkouts={setWorkouts}
           workoutID={workoutID}
-        />
+        /> */}
+        <button onClick={addWorkout}>Add Workout</button>
         <AddToMyExercises
           handleChange={handleChange}
           addMyExercise={addMyExercise}
