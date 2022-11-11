@@ -10,7 +10,6 @@ export default function Workout(props) {
 
   const saveWorkout = () => {
     setWorkouts((prevWorkouts) => {
-      console.log('prevworkouts', prevWorkouts);
       return {
         ...prevWorkouts,
         [workoutID]: {
@@ -23,9 +22,7 @@ export default function Workout(props) {
     });
   };
 
-  const addExercise = () => {
-    
-  }
+  const addExercise = () => {};
 
   const removeExercise = (name) => {
     setExercises((prev) => {
@@ -57,6 +54,7 @@ export default function Workout(props) {
     <div className="workout__container">
       <div className="workout__header">
         <h2 className="workout__date">{date}</h2>
+        <h2 className="">{time}</h2>
       </div>
       <div className="exercises__container">{exerciseElements}</div>
       <textarea
