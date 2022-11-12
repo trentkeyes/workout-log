@@ -13,11 +13,10 @@ function App() {
     'bicep curls',
     'deadlift',
   ]);
-  const [exerciseLog, setExerciseLog] = useState([]);
   const [workouts, setWorkouts] = useState({});
   const [workoutID, setWorkoutID] = useState(0);
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
-
+  console.log(prevWorkoutInput);
   const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
   };
@@ -35,27 +34,24 @@ function App() {
           },
         };
       });
+      incrementWorkoutID();
     } else {
-      const [date, hour, ampm] = prevWorkoutInput.split(' ');
-      const time = hour + ' ' + ampm;
-      console.log(date, time);
-      const matchArr = Object.values(workouts).filter((val) => {
-        return val.date == date && val.time == time;
-      });
-      const match = matchArr[0];
-      setWorkouts((prevWorkouts) => {
-        return {
-          ...prevWorkouts,
-          [workoutID]: {
-            date: new Date().toLocaleDateString(),
-            time: new Date().toLocaleTimeString(),
-            notes: '',
-            exercises: match.exercises,
-          },
-        };
-      });
+      if (prevWorkoutInput) {
+        setWorkouts((prevWorkouts) => {
+          return {
+            ...prevWorkouts,
+            [workoutID]: {
+              date: new Date().toLocaleDateString(),
+              time: new Date().toLocaleTimeString(),
+              notes: '',
+              exercises: workouts[prevWorkoutInput].exercises,
+            },
+          };
+        });
+        incrementWorkoutID();
+      }
     }
-    incrementWorkoutID();
+   
   };
 
   const incrementWorkoutID = () => {
@@ -77,10 +73,10 @@ function App() {
     </option>
   ));
 
-  const workoutOptions = Object.values(workouts).map((val) => {
+  const workoutOptions = Object.entries(workouts).map(([id, workout]) => {
     return (
-      <option key={val.time}>
-        {val.date} {val.time}
+      <option key={workout.time} value={id}>
+        {workout.date} {workout.time}
       </option>
     );
   });
@@ -88,6 +84,7 @@ function App() {
   console.log(workouts);
 
   const workoutElements = Object.entries(workouts).map(([key, value]) => {
+    console.log(workouts);
     return (
       <Workout
         key={key}
@@ -102,14 +99,6 @@ function App() {
     );
   });
 
-  const exerciseSelector = (
-    <ExerciseSelector exerciseOptions={exerciseOptions} />
-  );
-
-  const addExercise = (e) => {
-    e.preventDefault();
-  };
-
   const displayedWorkouts = {};
 
   const handlePrevWorkoutInput = (e) => {
@@ -120,19 +109,14 @@ function App() {
     <div className="App">
       <div className="container">
         {workoutElements}
-        {/* <Workout
-          exerciseOptions={exerciseOptions}
-          setWorkouts={setWorkouts}
-          workoutID={workoutID}
-        /> */}
         <select
           className="exerciseSelector__selector"
-          name="selectExercise"
-          id="selectExercise"
           onChange={handlePrevWorkoutInput}
           value={prevWorkoutInput}
         >
-          <option disabled>Previous Workouts</option>
+          <option selected value={''}>
+            Previous Workouts
+          </option>
           {workoutOptions}
         </select>
         <button onClick={() => addWorkout(false)}>
@@ -145,10 +129,6 @@ function App() {
           exercise={formData.exercise}
         />
       </div>
-      {/* <AddExercise
-      logExercise={setExerciseLog}
-      selector={<ExerciseSelector exerciseOptions={exerciseOptions} />}
-    /> */}
     </div>
   );
 }
