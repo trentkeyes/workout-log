@@ -16,7 +16,6 @@ function App() {
   const [workouts, setWorkouts] = useState({});
   const [workoutID, setWorkoutID] = useState(0);
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
-  console.log(prevWorkoutInput);
   const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
   };
@@ -51,7 +50,6 @@ function App() {
         incrementWorkoutID();
       }
     }
-   
   };
 
   const incrementWorkoutID = () => {
@@ -90,7 +88,7 @@ function App() {
         key={key}
         date={value.date}
         time={value.time}
-        exercises={value.exercises}
+       savedExercises={value.exercises}
         notes={value.notes}
         exerciseOptions={exerciseOptions}
         setWorkouts={setWorkouts}
@@ -114,9 +112,7 @@ function App() {
           onChange={handlePrevWorkoutInput}
           value={prevWorkoutInput}
         >
-          <option selected value={''}>
-            Previous Workouts
-          </option>
+          <option value={''}>Previous Workouts</option>
           {workoutOptions}
         </select>
         <button onClick={() => addWorkout(false)}>

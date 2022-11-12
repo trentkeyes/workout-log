@@ -3,9 +3,16 @@ import ExerciseSelector from './ExerciseSelector';
 import Exercise from './Exercise';
 
 export default function Workout(props) {
-  const { exerciseOptions, setWorkouts, workoutID, date, time } = props;
+  const {
+    exerciseOptions,
+    savedExercises,
+    setWorkouts,
+    workoutID,
+    date,
+    time,
+  } = props;
 
-  const [exercises, setExercises] = useState({});
+  const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState('Pumped up!');
 
   const saveWorkout = () => {
