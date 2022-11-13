@@ -10,6 +10,8 @@ export default function Workout(props) {
     workoutID,
     date,
     time,
+    deleteWorkout,
+    handleNotesInput,
   } = props;
 
   const [exercises, setExercises] = useState(savedExercises);
@@ -28,8 +30,6 @@ export default function Workout(props) {
       };
     });
   };
-
-  const addExercise = () => {};
 
   const removeExercise = (name) => {
     setExercises((prev) => {
@@ -55,6 +55,9 @@ export default function Workout(props) {
 
   const handleNotesChange = (e) => {
     setNotes(e.target.value);
+    setWorkouts((prevWorkouts)=> {
+      
+    })
   };
 
   return (
@@ -67,7 +70,7 @@ export default function Workout(props) {
       <textarea
         className="workout__notes"
         value={notes}
-        onChange={handleNotesChange}
+        onChange={() => handleNotesInput(workoutID)}
         rows="3"
       />
       <div className="workout__addExercise-save">
@@ -76,6 +79,7 @@ export default function Workout(props) {
           setExercises={setExercises}
         />
         <button onClick={saveWorkout}>Save Workout</button>
+        <button onClick={() => deleteWorkout(workoutID)}>Delete Workout</button>
       </div>
     </div>
   );

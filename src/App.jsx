@@ -52,6 +52,14 @@ function App() {
     }
   };
 
+  const deleteWorkout = (id) => {
+    setWorkouts((prev) => {
+      const copy = { ...prev };
+      delete copy[id];
+      return copy;
+    });
+  };
+
   const incrementWorkoutID = () => {
     setWorkoutID((prevWorkoutID) => prevWorkoutID + 1);
   };
@@ -81,6 +89,30 @@ function App() {
 
   console.log(workouts);
 
+  const handleExerciseInput = (id) => {
+    return (e) => {
+      setWorkouts((prevWorkouts) => {
+        prevWorkouts.id = e.target.value;
+        console.log('prev workouts, update the value?', prevWorkouts);
+        return {
+          ...prevWorkouts,
+        };
+      });
+    };
+  };
+
+  const handleNotesInput = (id) => {
+    return (e) => {
+      setWorkouts((prevWorkouts) => {
+        prevWorkouts[id].notes = e.target.value;
+        console.log('prev workouts, update the value', prevWorkouts);
+        return {
+          ...prevWorkouts,
+        };
+      });
+    };
+  };
+
   const workoutElements = Object.entries(workouts).map(([key, value]) => {
     console.log(workouts);
     return (
@@ -88,11 +120,13 @@ function App() {
         key={key}
         date={value.date}
         time={value.time}
-       savedExercises={value.exercises}
+        savedExercises={value.exercises}
         notes={value.notes}
         exerciseOptions={exerciseOptions}
         setWorkouts={setWorkouts}
         workoutID={key}
+        deleteWorkout={deleteWorkout}
+        handleNotesInput={handleNotesInput}
       />
     );
   });
