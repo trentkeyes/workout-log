@@ -49,15 +49,14 @@ export default function Workout(props) {
         exercises={exercises}
         setExercises={setExercises}
         removeExercise={removeExercise}
+        saveWorkout={saveWorkout}
       />
     );
   });
 
   const handleNotesChange = (e) => {
     setNotes(e.target.value);
-    setWorkouts((prevWorkouts)=> {
-      
-    })
+    saveWorkout();
   };
 
   return (
@@ -69,14 +68,16 @@ export default function Workout(props) {
       <div className="exercises__container">{exerciseElements}</div>
       <textarea
         className="workout__notes"
+        name="notes"
         value={notes}
-        onChange={() => handleNotesInput(workoutID)}
+        onChange={handleNotesChange}
         rows="3"
       />
       <div className="workout__addExercise-save">
         <ExerciseSelector
           exerciseOptions={exerciseOptions}
           setExercises={setExercises}
+          saveWorkout={saveWorkout}
         />
         <button onClick={saveWorkout}>Save Workout</button>
         <button onClick={() => deleteWorkout(workoutID)}>Delete Workout</button>

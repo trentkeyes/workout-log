@@ -113,6 +113,18 @@ function App() {
     };
   };
 
+  const handleWorkoutChange = (id) => (e) => {
+    const value = e.target.value; 
+    setWorkouts((prev) => {
+      return {
+        ...prev,
+        [id]: {
+          [e.target.name]: value,
+        }
+      }
+    })
+  }
+
   const workoutElements = Object.entries(workouts).map(([key, value]) => {
     console.log(workouts);
     return (

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-export default function ExerciseSelector({ exerciseOptions, setExercises }) {
+export default function ExerciseSelector({
+  exerciseOptions,
+  setExercises,
+  saveWorkout,
+}) {
   const [exerciseForm, setExerciseForm] = useState('My exercises');
   const handleChange = (e) => {
     setExerciseForm(e.target.value);
@@ -16,6 +20,7 @@ export default function ExerciseSelector({ exerciseOptions, setExercises }) {
         };
       }
     });
+    saveWorkout();
   };
 
   return (
