@@ -3,6 +3,7 @@ import AddExercise from './AddExercise';
 import ExerciseSelector from './ExerciseSelector';
 import AddToMyExercises from './AddToMyExercises';
 import Workout from './Workout';
+import Calendar from 'react-calendar';
 
 function App() {
   const [formData, setFormData] = useState({ exercise: '' });
@@ -16,6 +17,8 @@ function App() {
   const [workouts, setWorkouts] = useState({});
   const [workoutID, setWorkoutID] = useState(0);
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
+  const [calValue, onChangeCal] = useState(new Date());
+
   const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
   };
@@ -114,19 +117,18 @@ function App() {
   };
 
   const handleWorkoutChange = (id) => (e) => {
-    const value = e.target.value; 
+    const value = e.target.value;
     setWorkouts((prev) => {
       return {
         ...prev,
         [id]: {
           [e.target.name]: value,
-        }
-      }
-    })
-  }
+        },
+      };
+    });
+  };
 
   const workoutElements = Object.entries(workouts).map(([key, value]) => {
-    console.log(workouts);
     return (
       <Workout
         key={key}
@@ -143,6 +145,13 @@ function App() {
     );
   });
 
+  const onClickDay = (day) => {
+    const dayWorkouts = Object.entries(workouts).filter(
+      ([key, value]) => value.date === day.toLocaleDateString()
+    );
+    console.log('day workouts', dayWorkouts.map(workout => workout[0]));
+  };
+
   const displayedWorkouts = {};
 
   const handlePrevWorkoutInput = (e) => {
@@ -151,24 +160,29 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container">
+      <div className="flex flex-col justify-start items-center">
         {workoutElements}
+        <AddToMyExercises
+          handleChange={handleMyExerciseChange}
+          addMyExercise={addMyExercise}
+          exercise={formData.exercise}
+        />
+        <button onClick={() => addWorkout(true)}>Add New Workout</button>
         <select
-          className="exerciseSelector__selector"
+          className="p-2"
           onChange={handlePrevWorkoutInput}
           value={prevWorkoutInput}
         >
           <option value={''}>Previous Workouts</option>
           {workoutOptions}
         </select>
-        <button onClick={() => addWorkout(false)}>
-          Copy a previous workout
-        </button>
-        <button onClick={() => addWorkout(true)}>Add Workout</button>
-        <AddToMyExercises
-          handleChange={handleMyExerciseChange}
-          addMyExercise={addMyExercise}
-          exercise={formData.exercise}
+        <button onClick={() => addWorkout(false)}>Copy Selected Workout</button>
+
+        <Calendar
+          onChange={onChangeCal}
+          value={calValue}
+          onClickDay={onClickDay}
+          className="max-w-xs"
         />
       </div>
     </div>
