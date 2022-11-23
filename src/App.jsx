@@ -3,6 +3,7 @@ import AddExercise from './AddExercise';
 import ExerciseSelector from './ExerciseSelector';
 import AddToMyExercises from './AddToMyExercises';
 import Workout from './Workout';
+import Home from './Home';
 import Calendar from 'react-calendar';
 
 function App() {
@@ -18,6 +19,11 @@ function App() {
   const [workoutID, setWorkoutID] = useState(0);
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
   const [calValue, onChangeCal] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toLocaleDateString()
+  );
+
+  console.log(selectedDate);
 
   const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
@@ -145,14 +151,31 @@ function App() {
     );
   });
 
-  const onClickDay = (day) => {
-    const dayWorkouts = Object.entries(workouts).filter(
-      ([key, value]) => value.date === day.toLocaleDateString()
-    );
-    console.log('day workouts', dayWorkouts.map(workout => workout[0]));
-  };
+  const selectedWorkouts = Object.entries(workouts).filter(
+    ([key, value]) => value.date === selectedDate
+  );
+  const selectedWorkoutElements = selectedWorkouts.map(
+    ([key, value]) => {
+      return (
+        <Workout
+          key={key}
+          date={value.date}
+          time={value.time}
+          savedExercises={value.exercises}
+          notes={value.notes}
+          exerciseOptions={exerciseOptions}
+          setWorkouts={setWorkouts}
+          workoutID={key}
+          deleteWorkout={deleteWorkout}
+          handleNotesInput={handleNotesInput}
+        />
+      );
+    }
+  );
 
-  const displayedWorkouts = {};
+  const onClickDay = (day) => {
+    setSelectedDate(day.toLocaleDateString());
+  };
 
   const handlePrevWorkoutInput = (e) => {
     setPrevWorkoutInput(e.target.value);
@@ -184,6 +207,7 @@ function App() {
           onClickDay={onClickDay}
           className="max-w-xs"
         />
+        <Home selectedWorkouts={selectedWorkoutElements} />
       </div>
     </div>
   );
