@@ -12,8 +12,11 @@ export default function Workout(props) {
     time,
     deleteWorkout,
     handleNotesInput,
+    addCopiedWorkout,
   } = props;
 
+
+  console.log('props obj', props)
   const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState('Pumped up!');
 
@@ -81,6 +84,7 @@ export default function Workout(props) {
         />
         <button onClick={saveWorkout}>Save Workout</button>
         <button onClick={() => deleteWorkout(workoutID)}>Delete Workout</button>
+        <button onClick={() => addCopiedWorkout(workoutID)}>Copy to New Workout</button>
       </div>
     </div>
   );

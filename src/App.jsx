@@ -29,8 +29,8 @@ function App() {
     setFormData({ exercise: e.target.value });
   };
 
-  const addWorkout = (newWorkout) => {
-    if (newWorkout) {
+  const addWorkout = (newWorkout, id) => {
+    if (newWorkout && !id) {
       setWorkouts((prevWorkouts) => {
         return {
           ...prevWorkouts,
@@ -59,7 +59,36 @@ function App() {
         incrementWorkoutID();
       }
     }
+    if (id) {
+      setWorkouts((prevWorkouts) => {
+        return {
+          ...prevWorkouts,
+          [workoutID]: {
+            date: new Date().toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+            notes: '',
+            exercises: workouts[id].exercises,
+          },
+        };
+      });
+      incrementWorkoutID();
+    }
   };
+
+  const addCopiedWorkout = (id) => {
+    setWorkouts((prevWorkouts) => {
+      return {
+        ...prevWorkouts,
+        [workoutID]: {
+          date: new Date().toLocaleDateString(),
+          time: new Date().toLocaleTimeString(),
+          notes: workouts[id].exercises,
+          exercises: workouts[id].exercises,
+        },
+      };
+    });
+    incrementWorkoutID();
+  }
 
   const deleteWorkout = (id) => {
     setWorkouts((prev) => {
@@ -147,6 +176,7 @@ function App() {
         workoutID={key}
         deleteWorkout={deleteWorkout}
         handleNotesInput={handleNotesInput}
+        addCopiedWorkout={addCopiedWorkout}
       />
     );
   });
@@ -154,24 +184,22 @@ function App() {
   const selectedWorkouts = Object.entries(workouts).filter(
     ([key, value]) => value.date === selectedDate
   );
-  const selectedWorkoutElements = selectedWorkouts.map(
-    ([key, value]) => {
-      return (
-        <Workout
-          key={key}
-          date={value.date}
-          time={value.time}
-          savedExercises={value.exercises}
-          notes={value.notes}
-          exerciseOptions={exerciseOptions}
-          setWorkouts={setWorkouts}
-          workoutID={key}
-          deleteWorkout={deleteWorkout}
-          handleNotesInput={handleNotesInput}
-        />
-      );
-    }
-  );
+  const selectedWorkoutElements = selectedWorkouts.map(([key, value]) => {
+    return (
+      <Workout
+        key={key}
+        date={value.date}
+        time={value.time}
+        savedExercises={value.exercises}
+        notes={value.notes}
+        exerciseOptions={exerciseOptions}
+        setWorkouts={setWorkouts}
+        workoutID={key}
+        deleteWorkout={deleteWorkout}
+        handleNotesInput={handleNotesInput}
+      />
+    );
+  });
 
   const onClickDay = (day) => {
     setSelectedDate(day.toLocaleDateString());
