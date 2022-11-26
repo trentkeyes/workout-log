@@ -19,11 +19,7 @@ function App() {
   const [workoutID, setWorkoutID] = useState(0);
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
   const [calValue, onChangeCal] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toLocaleDateString()
-  );
-
-  console.log(selectedDate);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
@@ -35,7 +31,7 @@ function App() {
         return {
           ...prevWorkouts,
           [workoutID]: {
-            date: new Date().toLocaleDateString(),
+            date: new Date(),
             time: new Date().toLocaleTimeString(),
             notes: '',
             exercises: {},
@@ -49,7 +45,7 @@ function App() {
           return {
             ...prevWorkouts,
             [workoutID]: {
-              date: new Date().toLocaleDateString(),
+              date: new Date(),
               time: new Date().toLocaleTimeString(),
               notes: '',
               exercises: workouts[prevWorkoutInput].exercises,
@@ -64,7 +60,7 @@ function App() {
         return {
           ...prevWorkouts,
           [workoutID]: {
-            date: new Date().toLocaleDateString(),
+            date: new Date(),
             time: new Date().toLocaleTimeString(),
             notes: '',
             exercises: workouts[id].exercises,
@@ -80,7 +76,7 @@ function App() {
       return {
         ...prevWorkouts,
         [workoutID]: {
-          date: new Date().toLocaleDateString(),
+          date: new Date(),
           time: new Date().toLocaleTimeString(),
           notes: workouts[id].exercises,
           exercises: workouts[id].exercises,
@@ -88,7 +84,7 @@ function App() {
       };
     });
     incrementWorkoutID();
-  }
+  };
 
   const deleteWorkout = (id) => {
     setWorkouts((prev) => {
@@ -120,12 +116,10 @@ function App() {
   const workoutOptions = Object.entries(workouts).map(([id, workout]) => {
     return (
       <option key={workout.time} value={id}>
-        {workout.date} {workout.time}
+        {workout.date.toLocaleDateString()} {workout.time}
       </option>
     );
   });
-
-  console.log(workouts);
 
   const handleExerciseInput = (id) => {
     return (e) => {
@@ -182,8 +176,10 @@ function App() {
   });
 
   const selectedWorkouts = Object.entries(workouts).filter(
-    ([key, value]) => value.date === selectedDate
+    ([key, value]) =>
+      value.date.toLocaleDateString() == selectedDate.toLocaleDateString()
   );
+
   const selectedWorkoutElements = selectedWorkouts.map(([key, value]) => {
     return (
       <Workout
@@ -202,17 +198,24 @@ function App() {
   });
 
   const onClickDay = (day) => {
-    setSelectedDate(day.toLocaleDateString());
+    setSelectedDate(day);
   };
 
   const handlePrevWorkoutInput = (e) => {
     setPrevWorkoutInput(e.target.value);
   };
 
+  const changeDay = (startDate, days) => {
+    const newDay = new Date();
+    newDay.setDate(startDate.getDate() + days);
+    console.log('start', startDate, 'newDay', newDay);
+    setSelectedDate(newDay);
+  };
+
   return (
     <div className="App">
       <div className="flex flex-col justify-start items-center">
-        {workoutElements}
+        {/* {workoutElements} */}
         <AddToMyExercises
           handleChange={handleMyExerciseChange}
           addMyExercise={addMyExercise}
@@ -235,6 +238,12 @@ function App() {
           onClickDay={onClickDay}
           className="max-w-xs"
         />
+        <div>
+          <button onClick={() => changeDay(selectedDate, -1)}>
+            Previous Day
+          </button>
+          <button onClick={() => changeDay(selectedDate, 1)}>Next Day</button>
+        </div>
         <Home selectedWorkouts={selectedWorkoutElements} />
       </div>
     </div>

@@ -15,8 +15,6 @@ export default function Workout(props) {
     addCopiedWorkout,
   } = props;
 
-
-  console.log('props obj', props)
   const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState('Pumped up!');
 
@@ -65,7 +63,7 @@ export default function Workout(props) {
   return (
     <div className="workout__container">
       <div className="workout__header">
-        <h2 className="workout__date">{date}</h2>
+        <h2 className="workout__date">{date.toLocaleDateString()}</h2>
         <h2 className="">{time}</h2>
       </div>
       <div className="exercises__container">{exerciseElements}</div>
