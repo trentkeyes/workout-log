@@ -13,6 +13,7 @@ export default function Workout(props) {
     deleteWorkout,
     handleNotesInput,
     addCopiedWorkout,
+    handleSubmit,
   } = props;
 
   const [exercises, setExercises] = useState(savedExercises);
@@ -30,6 +31,11 @@ export default function Workout(props) {
         },
       };
     });
+  };
+
+  const saveSubmitWorkout = () => {
+    saveWorkout();
+    handleSubmit();
   };
 
   const removeExercise = (name) => {
@@ -80,9 +86,11 @@ export default function Workout(props) {
           setExercises={setExercises}
           saveWorkout={saveWorkout}
         />
-        <button onClick={saveWorkout}>Save Workout</button>
+        <button onClick={saveSubmitWorkout}>Save Workout</button>
         <button onClick={() => deleteWorkout(workoutID)}>Delete Workout</button>
-        <button onClick={() => addCopiedWorkout(workoutID)}>Copy to New Workout</button>
+        <button onClick={() => addCopiedWorkout(workoutID)}>
+          Copy to New Workout
+        </button>
       </div>
     </div>
   );

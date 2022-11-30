@@ -5,6 +5,8 @@ import AddToMyExercises from './AddToMyExercises';
 import Workout from './Workout';
 import Home from './Home';
 import Calendar from 'react-calendar';
+import { db } from './firebase';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 
 function App() {
   const [formData, setFormData] = useState({ exercise: '' });
@@ -20,6 +22,18 @@ function App() {
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
   const [calValue, onChangeCal] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleSubmit = async () => {
+    // e.preventDefault();
+    try {
+      await addDoc(collection(db, 'workouts'), {
+        ...workouts,
+        created: Timestamp.now(),
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   const handleMyExerciseChange = (e) => {
     setFormData({ exercise: e.target.value });
@@ -193,6 +207,7 @@ function App() {
         workoutID={key}
         deleteWorkout={deleteWorkout}
         handleNotesInput={handleNotesInput}
+        handleSubmit={handleSubmit}
       />
     );
   });
