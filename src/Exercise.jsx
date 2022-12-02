@@ -21,7 +21,6 @@ export default function Exercise(props) {
       };
     });
     setSetID((prev) => prev + 1);
-    saveWorkout();
   };
   const handleChange = (e) => {
     setNewSetFormData((prev) => {
@@ -38,7 +37,6 @@ export default function Exercise(props) {
         [name]: prev[name].filter((set) => set.id !== id),
       };
     });
-    saveWorkout();
   };
 
   const setsElements = sets.map((set, index) => {
