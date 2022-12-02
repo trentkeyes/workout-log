@@ -3,10 +3,19 @@ import AddExercise from './AddExercise';
 import ExerciseSelector from './ExerciseSelector';
 import AddToMyExercises from './AddToMyExercises';
 import Workout from './Workout';
-import Home from './Home';
+import Workouts from './Workouts';
 import Calendar from 'react-calendar';
 import { db } from './firebase';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  doc,
+  updateDoc,
+  query,
+  orderBy,
+  onSnapshot,
+} from 'firebase/firestore';
 
 function App() {
   const [formData, setFormData] = useState({ exercise: '' });
@@ -22,12 +31,14 @@ function App() {
   const [prevWorkoutInput, setPrevWorkoutInput] = useState('');
   const [calValue, onChangeCal] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [firebaseWorkouts, setFirebaseWorkouts] = useState({});
+  const [currentWorkout, setCurrentWorkout] = useState({});
 
   const handleSubmit = async () => {
     // e.preventDefault();
     try {
       await addDoc(collection(db, 'workouts'), {
-        ...workouts,
+        currentWorkout,
         created: Timestamp.now(),
       });
     } catch (err) {
@@ -39,51 +50,60 @@ function App() {
     setFormData({ exercise: e.target.value });
   };
 
-  const addWorkout = (newWorkout, id) => {
-    if (newWorkout && !id) {
-      setWorkouts((prevWorkouts) => {
-        return {
-          ...prevWorkouts,
-          [workoutID]: {
-            date: new Date(),
-            time: new Date().toLocaleTimeString(),
-            notes: '',
-            exercises: {},
-          },
-        };
-      });
-      incrementWorkoutID();
-    } else {
-      if (prevWorkoutInput) {
-        setWorkouts((prevWorkouts) => {
-          return {
-            ...prevWorkouts,
-            [workoutID]: {
-              date: new Date(),
-              time: new Date().toLocaleTimeString(),
-              notes: '',
-              exercises: workouts[prevWorkoutInput].exercises,
-            },
-          };
-        });
-        incrementWorkoutID();
-      }
-    }
-    if (id) {
-      setWorkouts((prevWorkouts) => {
-        return {
-          ...prevWorkouts,
-          [workoutID]: {
-            date: new Date(),
-            time: new Date().toLocaleTimeString(),
-            notes: '',
-            exercises: workouts[id].exercises,
-          },
-        };
-      });
-      incrementWorkoutID();
-    }
+  const addWorkout = () => {
+    setCurrentWorkout({
+      date: new Date(),
+      time: new Date().toLocaleTimeString(),
+      notes: '',
+      exercises: {},
+    });
   };
+
+  // const addWorkout = (newWorkout, id) => {
+  //   if (newWorkout && !id) {
+  //     setWorkouts((prevWorkouts) => {
+  //       return {
+  //         ...prevWorkouts,
+  //         [workoutID]: {
+  //           date: new Date(),
+  //           time: new Date().toLocaleTimeString(),
+  //           notes: '',
+  //           exercises: {},
+  //         },
+  //       };
+  //     });
+  //     incrementWorkoutID();
+  //   } else {
+  //     if (prevWorkoutInput) {
+  //       setWorkouts((prevWorkouts) => {
+  //         return {
+  //           ...prevWorkouts,
+  //           [workoutID]: {
+  //             date: new Date(),
+  //             time: new Date().toLocaleTimeString(),
+  //             notes: '',
+  //             exercises: workouts[prevWorkoutInput].exercises,
+  //           },
+  //         };
+  //       });
+  //       incrementWorkoutID();
+  //     }
+  //   }
+  //   if (id) {
+  //     setWorkouts((prevWorkouts) => {
+  //       return {
+  //         ...prevWorkouts,
+  //         [workoutID]: {
+  //           date: new Date(),
+  //           time: new Date().toLocaleTimeString(),
+  //           notes: '',
+  //           exercises: workouts[id].exercises,
+  //         },
+  //       };
+  //     });
+  //     incrementWorkoutID();
+  //   }
+  // };
 
   const addCopiedWorkout = (id) => {
     setWorkouts((prevWorkouts) => {
@@ -236,7 +256,7 @@ function App() {
           addMyExercise={addMyExercise}
           exercise={formData.exercise}
         />
-        <button onClick={() => addWorkout(true)}>Add New Workout</button>
+
         <select
           className="p-2"
           onChange={handlePrevWorkoutInput}
@@ -259,7 +279,10 @@ function App() {
           </button>
           <button onClick={() => changeDay(selectedDate, 1)}>Next Day</button>
         </div>
-        <Home selectedWorkouts={selectedWorkoutElements} />
+        <Workouts
+          selectedWorkouts={selectedWorkoutElements}
+          exerciseOptions={exerciseOptions}
+        />
       </div>
     </div>
   );
