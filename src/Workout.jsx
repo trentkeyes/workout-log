@@ -19,14 +19,13 @@ export default function Workout(props) {
     workoutID,
     date,
     time,
+    savedNotes,
     handleNotesInput,
-    addCopiedWorkout,
     id,
   } = props;
 
   const [exercises, setExercises] = useState(savedExercises);
-  const [notes, setNotes] = useState('Pumped up!');
-  const [workout, setWorkout] = useState({});
+  const [notes, setNotes] = useState(savedNotes);
 
   const saveWorkout = async () => {
     const workoutDocRef = doc(db, 'workouts', id);
@@ -41,20 +40,28 @@ export default function Workout(props) {
     }
   };
 
-  const deleteWorkout = async () => {
-    const workoutDocRef = doc(db, 'workouts', id);
+  const addCopiedWorkout = async () => {
+    console.log('adding copy');
     try {
-      console.log('deleting..');
-      console.log(workoutDocRef);
-      await deleteDoc(workoutDocRef);
+      await addDoc(collection(db, 'workouts'), {
+        notes: notes,
+        exercises: exercises,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        created: Timestamp.now(),
+      });
     } catch (err) {
       alert(err);
     }
   };
 
-  const saveSubmitWorkout = () => {
-    saveWorkout();
-    handleSubmit();
+  const deleteWorkout = async () => {
+    const workoutDocRef = doc(db, 'workouts', id);
+    try {
+      await deleteDoc(workoutDocRef);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const removeExercise = (name) => {
@@ -82,7 +89,6 @@ export default function Workout(props) {
 
   const handleNotesChange = (e) => {
     setNotes(e.target.value);
-    saveWorkout();
   };
 
   return (
@@ -107,9 +113,7 @@ export default function Workout(props) {
         />
         <button onClick={saveWorkout}>Save Workout</button>
         <button onClick={deleteWorkout}>Delete Workout</button>
-        <button onClick={() => addCopiedWorkout(workoutID)}>
-          Copy to New Workout
-        </button>
+        <button onClick={() => addCopiedWorkout()}>Copy to New Workout</button>
       </div>
     </div>
   );

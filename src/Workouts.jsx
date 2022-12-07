@@ -1,20 +1,14 @@
 import { useState, useEffect } from 'react';
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  Timestamp,
-  addDoc,
-} from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase';
 import Workout from './Workout';
+import { addWorkout } from './services/api';
 
 export default function Workouts({ selectedWorkouts, exerciseOptions }) {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    console.log('workouts use effect...');
+    console.log('workouts use effect');
     const q = query(collection(db, 'workouts'), orderBy('created', 'desc'));
     onSnapshot(q, (querySnapshot) => {
       setWorkouts(
@@ -26,21 +20,6 @@ export default function Workouts({ selectedWorkouts, exerciseOptions }) {
     });
   }, []);
 
-  const addWorkout = async () => {
-    try {
-      await addDoc(collection(db, 'workouts'), {
-        notes: '',
-        exercises: {},
-        date: new Date().toLocaleDateString(),
-        time: new Date().toLocaleTimeString(),
-        created: Timestamp.now(),
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-  // copy prev workout dropdown
-  // new workout button
   console.log(workouts);
 
   return (
@@ -58,6 +37,7 @@ export default function Workouts({ selectedWorkouts, exerciseOptions }) {
             date={workout.data.date}
             time={workout.data.time}
             savedExercises={workout.data.exercises}
+            savedNotes={workout.data.notes}
             exerciseOptions={exerciseOptions}
           />
         ))}
