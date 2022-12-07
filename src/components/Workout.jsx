@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ExerciseSelector from './ExerciseSelector';
 import Exercise from './Exercise';
-import { db } from './firebase';
+import { db } from '../firebase';
 import {
   collection,
   addDoc,
@@ -99,11 +99,12 @@ export default function Workout(props) {
       </div>
       <div className="exercises__container">{exerciseElements}</div>
       <textarea
-        className="workout__notes"
+        className="workout__notes indent-1"
         name="notes"
         value={notes}
         onChange={handleNotesChange}
         rows="3"
+        placeholder="Notes"
       />
       <div className="workout__addExercise-save">
         <ExerciseSelector

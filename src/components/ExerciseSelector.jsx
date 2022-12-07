@@ -3,7 +3,6 @@ import { useState } from 'react';
 export default function ExerciseSelector({
   exerciseOptions,
   setExercises,
-  saveWorkout,
 }) {
   const [exerciseForm, setExerciseForm] = useState('My exercises');
   const handleChange = (e) => {
@@ -21,7 +20,6 @@ export default function ExerciseSelector({
       }
     });
   };
-
   return (
     <div className="exerciseSelector__container">
       <select

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { db } from './firebase';
-import Workout from './Workout';
-import { addWorkout } from './services/api';
+import { db } from '../firebase';
+import Workout from '../components/Workout';
+import { addWorkout } from '../services/api';
 
-export default function Workouts({ selectedWorkouts, exerciseOptions }) {
+export default function Workouts({ exerciseOptions }) {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -25,9 +25,6 @@ export default function Workouts({ selectedWorkouts, exerciseOptions }) {
   return (
     <div>
       <button onClick={() => addWorkout()}>Add New Workout</button>
-      <h1>Selected Workouts:</h1>
-      <div>{selectedWorkouts}</div>
-      <h1>Firebase Workouts:</h1>
       <div>
         {workouts.map((workout) => (
           <Workout

@@ -1,11 +1,4 @@
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  Timestamp,
-  addDoc,
-} from 'firebase/firestore';
+import { collection, Timestamp, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const addWorkout = async () => {

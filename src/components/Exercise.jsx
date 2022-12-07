@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import AddSet from './AddSet';
 
-export default function Exercise(props) {
-  const { name, sets, setExercises, removeExercise, saveWorkout } = props;
+export default function Exercise({ name, sets, setExercises, removeExercise }) {
   const [newSetFormData, setNewSetFormData] = useState({
     weight: '',
     reps: '',
   });
   const [setID, setSetID] = useState(0);
-
   const addSet = () => {
     const newSet = {
       ...newSetFormData,
@@ -38,7 +36,6 @@ export default function Exercise(props) {
       };
     });
   };
-
   const setsElements = sets.map((set, index) => {
     return (
       <div key={index}>

@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export default function AddSet({ handleChange, vals, addSet }) {
   return (
     <div className="addSet__form">
@@ -23,7 +21,6 @@ export default function AddSet({ handleChange, vals, addSet }) {
           onChange={handleChange}
         />
       </div>
-
       <button className="addSet__btn" onClick={addSet}>
         Add Set
       </button>
