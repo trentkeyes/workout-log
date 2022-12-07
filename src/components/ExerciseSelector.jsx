@@ -23,7 +23,7 @@ export default function ExerciseSelector({
   return (
     <div className="exerciseSelector__container">
       <select
-        className="exerciseSelector__selector"
+        className="exerciseSelector__selector text-center"
         name="selectExercise"
         id="selectExercise"
         onChange={handleChange}

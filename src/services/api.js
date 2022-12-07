@@ -1,4 +1,11 @@
-import { collection, Timestamp, addDoc } from 'firebase/firestore';
+import {
+  collection,
+  Timestamp,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+} from 'firebase/firestore';
 import { db } from '../firebase';
 
 const addWorkout = async () => {
@@ -15,4 +22,26 @@ const addWorkout = async () => {
   }
 };
 
-export { addWorkout };
+const saveMyExercise = async (exercise) => {
+  try {
+    await addDoc(collection(db, 'myExercises'), {
+      name: exercise,
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
+const getMyExercises = (setFunction) => {
+  const q = query(collection(db, 'myExercises'), orderBy('name'));
+  onSnapshot(q, (querySnapshot) => {
+    setFunction(
+      querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        name: doc.data().name,
+      }))
+    );
+  });
+};
+
+export { addWorkout, saveMyExercise, getMyExercises };

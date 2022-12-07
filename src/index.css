@@ -32,25 +32,6 @@ body {
   height: 100vh;
 }
 
-.addMyExercise__form {
-  display: flex;
-  justify-content: flex-start;
-  gap: .5em;
-  margin: .5em;
-  margin-top: auto;
-}
-
-.addMyExercise__form input,
-.addMyExercise__form button {
-  width: 50%;
-  max-width: 200px;
-}
-
-.addMyExercise__form input {
-  font-size: 1.125rem;
-  text-indent: .5rem;
-}
-
 .workout__container {
   margin: .5em;
   padding: .5em;

@@ -6,15 +6,16 @@ export default function AddToMyExercises({ addMyExercise }) {
     setInput(e.target.value);
   };
   return (
-    <form className="addMyExercise__form">
+    <div className="addMyExercise__div flex m-1 gap-1">
       <input
         type="text"
         name="newExercise"
         value={input}
         onChange={handleChange}
         placeholder="New exercise"
+        className="indent-1"
       />
       <button onClick={() => addMyExercise(input)}>Add to My Exercises</button>
-    </form>
+    </div>
   );
 }

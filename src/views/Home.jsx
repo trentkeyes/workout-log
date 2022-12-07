@@ -1,5 +1,5 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { getMyExercises, saveMyExercise } from '../services/api';
 import AddToMyExercises from '../components/AddToMyExercises';
 import Workouts from './Workouts';
 import Cal from '../components/Cal';
@@ -13,16 +13,19 @@ export default function Home() {
     'deadlift',
   ]);
 
+  useEffect(() => {
+    getMyExercises(setMyExercises);
+  }, []);
+
   const addMyExercise = (exercise) => {
     if (myExercises.some((element) => element === exercise) || !exercise) {
       return;
     }
-    setMyExercises((prevMyExercises) => [...prevMyExercises, exercise]);
+    saveMyExercise(exercise);
   };
-
-  const exerciseOptions = myExercises.map((exercise) => (
-    <option key={exercise} value={exercise}>
-      {exercise}
+  const exerciseOptions = myExercises.map(({ id, name }) => (
+    <option key={id} value={name}>
+      {name}
     </option>
   ));
 
@@ -30,7 +33,7 @@ export default function Home() {
     <div className="flex flex-col justify-start items-center">
       <AddToMyExercises addMyExercise={addMyExercise} />
       <Workouts exerciseOptions={exerciseOptions} />
-      <Cal />
+      {/* <Cal /> */}
     </div>
   );
 }

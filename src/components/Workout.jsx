@@ -11,19 +11,14 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 
-export default function Workout(props) {
-  const {
-    exerciseOptions,
-    savedExercises,
-    setWorkouts,
-    workoutID,
-    date,
-    time,
-    savedNotes,
-    handleNotesInput,
-    id,
-  } = props;
-
+export default function Workout({
+  exerciseOptions,
+  savedExercises,
+  date,
+  time,
+  savedNotes,
+  id,
+}) {
   const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState(savedNotes);
 
