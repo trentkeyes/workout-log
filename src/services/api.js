@@ -1,7 +1,10 @@
 import {
   collection,
-  Timestamp,
+  doc,
   addDoc,
+  updateDoc,
+  deleteDoc,
+  Timestamp,
   query,
   orderBy,
   onSnapshot,
@@ -17,6 +20,43 @@ const addWorkout = async () => {
       time: new Date().toLocaleTimeString(),
       created: Timestamp.now(),
     });
+  } catch (err) {
+    alert(err);
+  }
+};
+
+const addCopiedWorkout = async ({ exercises, notes }) => {
+  console.log('adding copy');
+  try {
+    await addDoc(collection(db, 'workouts'), {
+      notes: notes,
+      exercises: exercises,
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      created: Timestamp.now(),
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
+const updateWorkout = async ({ id, exercises, notes }) => {
+  const workoutDocRef = doc(db, 'workouts', id);
+  try {
+    await updateDoc(workoutDocRef, {
+      notes: notes,
+      exercises: exercises,
+      modified: Timestamp.now(),
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
+const deleteWorkout = async (id) => {
+  const workoutDocRef = doc(db, 'workouts', id);
+  try {
+    await deleteDoc(workoutDocRef);
   } catch (err) {
     alert(err);
   }
@@ -44,4 +84,11 @@ const getMyExercises = (setFunction) => {
   });
 };
 
-export { addWorkout, saveMyExercise, getMyExercises };
+export {
+  addWorkout,
+  addCopiedWorkout,
+  updateWorkout,
+  deleteWorkout,
+  saveMyExercise,
+  getMyExercises,
+};

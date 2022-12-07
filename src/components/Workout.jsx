@@ -10,6 +10,11 @@ import {
   deleteDoc,
   Timestamp,
 } from 'firebase/firestore';
+import {
+  addCopiedWorkout,
+  updateWorkout,
+  deleteWorkout,
+} from '../services/api';
 
 export default function Workout({
   exerciseOptions,
@@ -21,43 +26,6 @@ export default function Workout({
 }) {
   const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState(savedNotes);
-
-  const saveWorkout = async () => {
-    const workoutDocRef = doc(db, 'workouts', id);
-    try {
-      await updateDoc(workoutDocRef, {
-        notes: notes,
-        exercises: exercises,
-        modified: Timestamp.now(),
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const addCopiedWorkout = async () => {
-    console.log('adding copy');
-    try {
-      await addDoc(collection(db, 'workouts'), {
-        notes: notes,
-        exercises: exercises,
-        date: new Date().toLocaleDateString(),
-        time: new Date().toLocaleTimeString(),
-        created: Timestamp.now(),
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const deleteWorkout = async () => {
-    const workoutDocRef = doc(db, 'workouts', id);
-    try {
-      await deleteDoc(workoutDocRef);
-    } catch (err) {
-      alert(err);
-    }
-  };
 
   const removeExercise = (name) => {
     setExercises((prev) => {
@@ -77,7 +45,6 @@ export default function Workout({
         exercises={exercises}
         setExercises={setExercises}
         removeExercise={removeExercise}
-        saveWorkout={saveWorkout}
       />
     );
   });
@@ -105,11 +72,14 @@ export default function Workout({
         <ExerciseSelector
           exerciseOptions={exerciseOptions}
           setExercises={setExercises}
-          saveWorkout={saveWorkout}
         />
-        <button onClick={saveWorkout}>Save Workout</button>
-        <button onClick={deleteWorkout}>Delete Workout</button>
-        <button onClick={() => addCopiedWorkout()}>Copy to New Workout</button>
+        <button onClick={() => updateWorkout({ id, exercises, notes })}>
+          Save Workout
+        </button>
+        <button onClick={() => deleteWorkout(id)}>Delete Workout</button>
+        <button onClick={() => addCopiedWorkout({ exercises, notes })}>
+          Copy to New Workout
+        </button>
       </div>
     </div>
   );
