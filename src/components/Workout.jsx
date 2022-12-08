@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ExerciseSelector from './ExerciseSelector';
 import Exercise from './Exercise';
-import { db } from '../firebase';
+import { db } from '../services/firebase';
 import {
   collection,
   addDoc,

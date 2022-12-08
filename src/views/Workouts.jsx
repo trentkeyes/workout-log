@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../services/firebase';
 import Workout from '../components/Workout';
 import { addWorkout } from '../services/api';
 
