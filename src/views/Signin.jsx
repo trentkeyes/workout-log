@@ -1,9 +1,13 @@
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { GoogleButton } from 'react-google-button';
 import { UserAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Signin = () => {
-  const { googleSignIn } = UserAuth();
+  const { googleSignIn, user } = UserAuth();
+  const navigate = useNavigate();
+
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -11,6 +15,12 @@ const Signin = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (user != null) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <div>
