@@ -24,6 +24,8 @@ export default function Workout({
   savedNotes,
   id,
 }) {
+  // const { user } = UserAuth();
+
   const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState(savedNotes);
 

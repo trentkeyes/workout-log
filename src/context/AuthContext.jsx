@@ -6,8 +6,9 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { auth } from '../services/firebase';
+import { auth, db } from '../services/firebase';
 import { useState, useEffect } from 'react';
+import { addUser } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -27,6 +28,8 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       console.log('User', currentUser);
+      console.log('UID', currentUser.uid);
+      addUser({ id: currentUser.uid, email: currentUser.email });
     });
     return () => {
       unsubscribe();

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   collection,
   doc,
@@ -8,17 +9,39 @@ import {
   query,
   orderBy,
   onSnapshot,
+  setDoc,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { UserAuth } from '../context/AuthContext';
 
-const addWorkout = async () => {
+// const userId = user.uid;
+
+const addWorkout = async (userId) => {
   try {
-    await addDoc(collection(db, 'workouts'), {
-      notes: '',
-      exercises: {},
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
-      created: Timestamp.now(),
+    // const userRef = doc(db, 'users', userId);
+    // await setDoc(
+    //   doc(
+    //     userRef,
+    //     {
+    //       workouts: {
+    //         notes: '',
+    //         exercises: '',
+    //         date: new Date().toLocaleDateString(),
+    //         time: new Date().toLocaleTimeString(),
+    //         created: Timestamp.now(),
+    //       },
+    //     },
+    //     { merge: true }
+    //   )
+    // );
+
+    await addDoc(collection(db, 'users'), {
+      [userId]: {
+        workouts: {
+          test: 'this is a workout?',
+        },
+        myExercises: {},
+      },
     });
   } catch (err) {
     alert(err);
@@ -84,6 +107,16 @@ const getMyExercises = (setFunction) => {
   });
 };
 
+const addUser = async ({ id, email }) => {
+  try {
+    await setDoc(doc(db, 'users', id), {
+      email: email,
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
 export {
   addWorkout,
   addCopiedWorkout,
@@ -91,4 +124,5 @@ export {
   deleteWorkout,
   saveMyExercise,
   getMyExercises,
+  addUser,
 };

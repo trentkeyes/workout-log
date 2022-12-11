@@ -3,8 +3,11 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import Workout from '../components/Workout';
 import { addWorkout } from '../services/api';
+import { UserAuth } from '../context/AuthContext';
 
 export default function Workouts({ exerciseOptions }) {
+  const { user } = UserAuth();
+
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -24,7 +27,7 @@ export default function Workouts({ exerciseOptions }) {
 
   return (
     <div>
-      <button onClick={() => addWorkout()}>Add New Workout</button>
+      <button onClick={() => addWorkout(user.uid)}>Add New Workout</button>
       <div>
         {workouts.map((workout) => (
           <Workout

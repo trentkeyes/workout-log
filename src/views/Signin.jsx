@@ -24,7 +24,7 @@ const Signin = () => {
 
   return (
     <div>
-      <h1>Sign in page</h1>
+      <h1>Sign In</h1>
       <div className="m-auto py-4">
         <GoogleButton onClick={handleGoogleSignIn} />
       </div>
