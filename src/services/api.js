@@ -35,13 +35,26 @@ const addWorkout = async (userId) => {
     //   )
     // );
 
-    await addDoc(collection(db, 'users'), {
-      [userId]: {
-        workouts: {
-          test: 'this is a workout?',
-        },
-        myExercises: {},
-      },
+    //   await addDoc(collection(db, 'workouts'), {
+    //     [userId]: {
+    //       workouts: {
+    //         test: 'this is a workout?',
+    //       },
+    //       myExercises: {},
+    //     },
+    //   });
+    // } catch (err) {
+    //   alert(err);
+    // }
+    const docRef = collection(db, 'users');
+    const docRef2 = doc(docRef, userId);
+    const docRef3 = collection(docRef2, 'workouts');
+    await addDoc(docRef3, {
+      notes: '',
+      exercises: '',
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      created: Timestamp.now(),
     });
   } catch (err) {
     alert(err);
