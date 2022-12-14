@@ -3,6 +3,7 @@ import { getMyExercises, saveMyExercise } from '../services/api';
 import AddToMyExercises from '../components/AddToMyExercises';
 import Workouts from './Workouts';
 import Cal from '../components/Cal';
+import { UserAuth } from '../context/AuthContext';
 
 export default function Home() {
   const [myExercises, setMyExercises] = useState([
@@ -16,6 +17,9 @@ export default function Home() {
   useEffect(() => {
     getMyExercises(setMyExercises);
   }, []);
+
+  const { user } = UserAuth();
+  const userId = user.uid;
 
   const addMyExercise = (exercise) => {
     if (myExercises.some((element) => element === exercise) || !exercise) {
@@ -32,7 +36,9 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-start items-center">
       <AddToMyExercises addMyExercise={addMyExercise} />
-      <Workouts exerciseOptions={exerciseOptions} />
+      {userId && (
+        <Workouts exerciseOptions={exerciseOptions} userId={user.uid} />
+      )}
       {/* <Cal /> */}
     </div>
   );

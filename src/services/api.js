@@ -14,42 +14,26 @@ import {
 import { db } from './firebase';
 import { UserAuth } from '../context/AuthContext';
 
-// const userId = user.uid;
+export const getWorkouts = (userId, setWorkouts) => {
+  const q = query(
+    collection(db, 'users', userId, 'workouts'),
+    orderBy('created', 'desc')
+  );
+  console.log(q);
+  onSnapshot(q, (querySnapshot) => {
+    setWorkouts(
+      querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }))
+    );
+  });
+};
 
 const addWorkout = async (userId) => {
   try {
-    // const userRef = doc(db, 'users', userId);
-    // await setDoc(
-    //   doc(
-    //     userRef,
-    //     {
-    //       workouts: {
-    //         notes: '',
-    //         exercises: '',
-    //         date: new Date().toLocaleDateString(),
-    //         time: new Date().toLocaleTimeString(),
-    //         created: Timestamp.now(),
-    //       },
-    //     },
-    //     { merge: true }
-    //   )
-    // );
-
-    //   await addDoc(collection(db, 'workouts'), {
-    //     [userId]: {
-    //       workouts: {
-    //         test: 'this is a workout?',
-    //       },
-    //       myExercises: {},
-    //     },
-    //   });
-    // } catch (err) {
-    //   alert(err);
-    // }
-    const docRef = collection(db, 'users');
-    const docRef2 = doc(docRef, userId);
-    const docRef3 = collection(docRef2, 'workouts');
-    await addDoc(docRef3, {
+    const workoutsRef = collection(db, 'users', userId, 'workouts');
+    await addDoc(workoutsRef, {
       notes: '',
       exercises: '',
       date: new Date().toLocaleDateString(),
@@ -61,10 +45,10 @@ const addWorkout = async (userId) => {
   }
 };
 
-const addCopiedWorkout = async ({ exercises, notes }) => {
-  console.log('adding copy');
+const addCopiedWorkout = async ({ userId, exercises, notes }) => {
   try {
-    await addDoc(collection(db, 'workouts'), {
+    const workoutsRef = collection(db, 'users', userId, 'workouts');
+    await addDoc(workoutsRef, {
       notes: notes,
       exercises: exercises,
       date: new Date().toLocaleDateString(),

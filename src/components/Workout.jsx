@@ -1,20 +1,12 @@
 import { useState } from 'react';
 import ExerciseSelector from './ExerciseSelector';
 import Exercise from './Exercise';
-import { db } from '../services/firebase';
-import {
-  collection,
-  addDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-  Timestamp,
-} from 'firebase/firestore';
 import {
   addCopiedWorkout,
   updateWorkout,
   deleteWorkout,
 } from '../services/api';
+import { UserAuth } from '../context/AuthContext';
 
 export default function Workout({
   exerciseOptions,
@@ -24,7 +16,8 @@ export default function Workout({
   savedNotes,
   id,
 }) {
-  // const { user } = UserAuth();
+  const { user } = UserAuth();
+  const userId = user.uid;
 
   const [exercises, setExercises] = useState(savedExercises);
   const [notes, setNotes] = useState(savedNotes);
@@ -79,7 +72,7 @@ export default function Workout({
           Save Workout
         </button>
         <button onClick={() => deleteWorkout(id)}>Delete Workout</button>
-        <button onClick={() => addCopiedWorkout({ exercises, notes })}>
+        <button onClick={() => addCopiedWorkout({ userId, exercises, notes })}>
           Copy to New Workout
         </button>
       </div>

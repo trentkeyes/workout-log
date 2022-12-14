@@ -1,26 +1,23 @@
 import { useState, useEffect } from 'react';
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  doc,
+  getDoc,
+  getDocs,
+} from 'firebase/firestore';
 import { db } from '../services/firebase';
 import Workout from '../components/Workout';
-import { addWorkout } from '../services/api';
+import { addWorkout, getWorkouts } from '../services/api';
 import { UserAuth } from '../context/AuthContext';
 
-export default function Workouts({ exerciseOptions }) {
-  const { user } = UserAuth();
-
+export default function Workouts({ exerciseOptions, userId }) {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    console.log('workouts use effect');
-    const q = query(collection(db, 'workouts'), orderBy('created', 'desc'));
-    onSnapshot(q, (querySnapshot) => {
-      setWorkouts(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
+    getWorkouts(userId, setWorkouts);
   }, []);
 
   console.log(workouts);
