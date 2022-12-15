@@ -85,7 +85,7 @@ const deleteWorkout = async ({ userId, id }) => {
 const saveMyExercise = async ({ userId, exercise }) => {
   const myExRef = collection(db, 'users', userId, 'myExercises');
   try {
-    await addDoc(collection(myExRef), {
+    await addDoc(myExRef, {
       name: exercise,
     });
   } catch (err) {
@@ -93,13 +93,13 @@ const saveMyExercise = async ({ userId, exercise }) => {
   }
 };
 
-const getMyExercises = ({ userId, setFunction }) => {
+const getMyExercises = ({ userId, setMyExercises }) => {
   const q = query(
     collection(db, 'users', userId, 'myExercises'),
     orderBy('name')
   );
   onSnapshot(q, (querySnapshot) => {
-    setFunction(
+    setMyExercises(
       querySnapshot.docs.map((doc) => ({
         id: doc.id,
         name: doc.data().name,

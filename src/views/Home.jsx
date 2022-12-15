@@ -14,11 +14,15 @@ export default function Home() {
     'deadlift',
   ]);
 
+  console.log(myExercises);
+
   const { user } = UserAuth();
   const userId = user.uid;
 
   useEffect(() => {
-    getMyExercises({ userId, setMyExercises });
+    if (userId) {
+      getMyExercises({ userId, setMyExercises });
+    }
   }, []);
 
   const addMyExercise = (exercise) => {
