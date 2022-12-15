@@ -8,12 +8,10 @@ import {
   getDoc,
   getDocs,
 } from 'firebase/firestore';
-import { db } from '../services/firebase';
 import Workout from '../components/Workout';
 import { addWorkout, getWorkouts } from '../services/api';
-import { UserAuth } from '../context/AuthContext';
 
-export default function Workouts({ exerciseOptions, userId }) {
+export const Workouts = ({ exerciseOptions, userId }) => {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -41,4 +39,4 @@ export default function Workouts({ exerciseOptions, userId }) {
       </div>
     </div>
   );
-}
+};

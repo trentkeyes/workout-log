@@ -68,10 +68,12 @@ export default function Workout({
           exerciseOptions={exerciseOptions}
           setExercises={setExercises}
         />
-        <button onClick={() => updateWorkout({ id, exercises, notes })}>
+        <button onClick={() => updateWorkout({ userId, id, exercises, notes })}>
           Save Workout
         </button>
-        <button onClick={() => deleteWorkout(id)}>Delete Workout</button>
+        <button onClick={() => deleteWorkout({ userId, id })}>
+          Delete Workout
+        </button>
         <button onClick={() => addCopiedWorkout({ userId, exercises, notes })}>
           Copy to New Workout
         </button>

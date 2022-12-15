@@ -19,7 +19,6 @@ export const getWorkouts = (userId, setWorkouts) => {
     collection(db, 'users', userId, 'workouts'),
     orderBy('created', 'desc')
   );
-  console.log(q);
   onSnapshot(q, (querySnapshot) => {
     setWorkouts(
       querySnapshot.docs.map((doc) => ({
@@ -60,10 +59,11 @@ const addCopiedWorkout = async ({ userId, exercises, notes }) => {
   }
 };
 
-const updateWorkout = async ({ id, exercises, notes }) => {
-  const workoutDocRef = doc(db, 'workouts', id);
+const updateWorkout = async ({ userId, id, exercises, notes }) => {
+  console.log('update workout');
+  const workoutRef = doc(db, 'users', userId, 'workouts', id);
   try {
-    await updateDoc(workoutDocRef, {
+    await updateDoc(workoutRef, {
       notes: notes,
       exercises: exercises,
       modified: Timestamp.now(),
@@ -73,18 +73,19 @@ const updateWorkout = async ({ id, exercises, notes }) => {
   }
 };
 
-const deleteWorkout = async (id) => {
-  const workoutDocRef = doc(db, 'workouts', id);
+const deleteWorkout = async ({ userId, id }) => {
+  const workoutRef = doc(db, 'users', userId, 'workouts', id);
   try {
-    await deleteDoc(workoutDocRef);
+    await deleteDoc(workoutRef);
   } catch (err) {
     alert(err);
   }
 };
 
-const saveMyExercise = async (exercise) => {
+const saveMyExercise = async ({ userId, exercise }) => {
+  const myExRef = collection(db, 'users', userId, 'myExercises');
   try {
-    await addDoc(collection(db, 'myExercises'), {
+    await addDoc(collection(myExRef), {
       name: exercise,
     });
   } catch (err) {
@@ -92,8 +93,11 @@ const saveMyExercise = async (exercise) => {
   }
 };
 
-const getMyExercises = (setFunction) => {
-  const q = query(collection(db, 'myExercises'), orderBy('name'));
+const getMyExercises = ({ userId, setFunction }) => {
+  const q = query(
+    collection(db, 'users', userId, 'myExercises'),
+    orderBy('name')
+  );
   onSnapshot(q, (querySnapshot) => {
     setFunction(
       querySnapshot.docs.map((doc) => ({
