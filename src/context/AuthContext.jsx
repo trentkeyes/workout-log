@@ -9,6 +9,7 @@ import {
 import { auth, db } from '../services/firebase';
 import { useState, useEffect } from 'react';
 import { addUser } from '../services/api';
+import { Navigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -30,6 +31,7 @@ export const AuthContextProvider = ({ children }) => {
       // console.log('User', currentUser);
       // console.log('UID', currentUser.uid);
       addUser({ id: currentUser.uid, email: currentUser.email });
+      <Navigate to="/home" />;
     });
     return () => {
       unsubscribe();

@@ -4,22 +4,19 @@ import AddToMyExercises from '../components/AddToMyExercises';
 import { Workouts } from './Workouts';
 import Cal from '../components/Cal';
 import { UserAuth } from '../context/AuthContext';
+import { redirect } from 'react-router-dom';
 
 export default function Home() {
-  const [myExercises, setMyExercises] = useState([
-    'squats',
-    'bench press',
-    'lat pulldowns',
-    'bicep curls',
-    'deadlift',
-  ]);
-
-  console.log(myExercises);
-
+  const [myExercises, setMyExercises] = useState([]);
   const { user } = UserAuth();
   const userId = user.uid;
 
+  console.log(myExercises);
+
   useEffect(() => {
+    if (!userId) {
+      redirect('/signin');
+    }
     if (userId) {
       getMyExercises({ userId, setMyExercises });
     }
@@ -31,6 +28,7 @@ export default function Home() {
     }
     saveMyExercise({ userId, exercise });
   };
+
   const exerciseOptions = myExercises.map(({ id, name }) => (
     <option key={id} value={name}>
       {name}

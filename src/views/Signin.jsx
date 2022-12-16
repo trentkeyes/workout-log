@@ -19,6 +19,8 @@ const Signin = () => {
   useEffect(() => {
     if (user != null) {
       navigate('/');
+    } else {
+      navigate('/signin');
     }
   }, []);
 
