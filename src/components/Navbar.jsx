@@ -1,9 +1,9 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { UserAuth } from '../context/AuthContext';
+import { UserContext } from '../App';
 
 export const Navbar = () => {
-  const { user, logOut } = UserAuth();
-
+  const user = useContext(UserContext);
   const handleSignOut = async () => {
     try {
       await logOut();
