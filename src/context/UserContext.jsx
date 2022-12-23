@@ -6,17 +6,17 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { auth, db } from '../services/firebase';
+import { auth } from '../services/firebase';
 import { useState, useEffect } from 'react';
 import { addUser } from '../services/api';
 import { Navigate } from 'react-router-dom';
 
-const AuthContext = createContext();
+const UserContext = createContext();
 
-export const AuthContextProvider = ({ children }) => {
+export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const googleSignIn = () => {
+  const googleLogin = () => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
   };
@@ -28,23 +28,23 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      // console.log('User', currentUser);
-      // console.log('UID', currentUser.uid);
-      addUser({ id: currentUser.uid, email: currentUser.email });
+      console.log('User', currentUser);
+      if (currentUser) {
+        addUser({ id: currentUser.uid, email: currentUser.email });
+      }
+
       <Navigate to="/home" />;
     });
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
+    <UserContext.Provider value={{ googleLogin, logOut, user }}>
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
 
 export const UserAuth = () => {
-  return useContext(AuthContext);
+  return useContext(UserContext);
 };

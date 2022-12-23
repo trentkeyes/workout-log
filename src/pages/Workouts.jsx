@@ -1,13 +1,4 @@
 import { useState, useEffect } from 'react';
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  doc,
-  getDoc,
-  getDocs,
-} from 'firebase/firestore';
 import Workout from '../components/Workout';
 import { addWorkout, getWorkouts } from '../services/api';
 
@@ -18,10 +9,10 @@ export const Workouts = ({ exerciseOptions, userId }) => {
     getWorkouts(userId, setWorkouts);
   }, []);
 
-  console.log(workouts);
+  console.log('Workouts:', workouts);
 
   return (
-    <div>
+    <div className='flex flex-col items-center my-2'>
       <button onClick={() => addWorkout(user.uid)}>Add New Workout</button>
       <div>
         {workouts.map((workout) => (

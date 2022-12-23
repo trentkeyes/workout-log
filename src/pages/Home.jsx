@@ -3,20 +3,15 @@ import { getMyExercises, saveMyExercise } from '../services/api';
 import AddToMyExercises from '../components/AddToMyExercises';
 import { Workouts } from './Workouts';
 import Cal from '../components/Cal';
-import { UserAuth } from '../context/AuthContext';
-import { redirect } from 'react-router-dom';
+import { UserAuth } from '../context/UserContext';
 
 export default function Home() {
   const [myExercises, setMyExercises] = useState([]);
   const { user } = UserAuth();
   const userId = user.uid;
 
-  console.log(myExercises);
-
+  console.log('My exercises:', myExercises);
   useEffect(() => {
-    if (!userId) {
-      redirect('/signin');
-    }
     if (userId) {
       getMyExercises({ userId, setMyExercises });
     }
@@ -38,9 +33,7 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-start items-center">
       {userId && <AddToMyExercises addMyExercise={addMyExercise} />}
-      {userId && (
-        <Workouts exerciseOptions={exerciseOptions} userId={user.uid} />
-      )}
+      {userId && <Workouts exerciseOptions={exerciseOptions} userId={userId} />}
       {/* <Cal /> */}
     </div>
   );

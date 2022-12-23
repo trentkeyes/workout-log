@@ -6,7 +6,7 @@ export default function AddToMyExercises({ addMyExercise }) {
     setInput(e.target.value);
   };
   return (
-    <div className="addMyExercise__div flex m-1 gap-1">
+    <div className="addMyExercise__div flex gap-2">
       <input
         type="text"
         name="newExercise"

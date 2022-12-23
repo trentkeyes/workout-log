@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   collection,
   doc,
@@ -12,7 +11,6 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { UserAuth } from '../context/AuthContext';
 
 export const getWorkouts = (userId, setWorkouts) => {
   const q = query(

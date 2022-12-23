@@ -6,7 +6,7 @@ import {
   updateWorkout,
   deleteWorkout,
 } from '../services/api';
-import { UserAuth } from '../context/AuthContext';
+import { UserAuth } from '../context/UserContext';
 
 export default function Workout({
   exerciseOptions,
@@ -49,11 +49,14 @@ export default function Workout({
   };
 
   return (
-    <div className="workout__container">
-      <div className="workout__header">
-        <h2 className="workout__date">{date}</h2>
-        <h2 className="">{time}</h2>
-      </div>
+    <div className="workout__container my-2 p-4 border-2 border-solid border-blue-600">
+      <h2 className="text-center font-bold text-xl">
+        {date} {time}
+      </h2>{' '}
+      <ExerciseSelector
+        exerciseOptions={exerciseOptions}
+        setExercises={setExercises}
+      />
       <div className="exercises__container">{exerciseElements}</div>
       <textarea
         className="workout__notes indent-1"
@@ -64,18 +67,14 @@ export default function Workout({
         placeholder="Notes"
       />
       <div className="workout__addExercise-save">
-        <ExerciseSelector
-          exerciseOptions={exerciseOptions}
-          setExercises={setExercises}
-        />
-        <button onClick={() => updateWorkout({ userId, id, exercises, notes })}>
-          Save Workout
-        </button>
         <button onClick={() => deleteWorkout({ userId, id })}>
           Delete Workout
         </button>
         <button onClick={() => addCopiedWorkout({ userId, exercises, notes })}>
           Copy to New Workout
+        </button>
+        <button onClick={() => updateWorkout({ userId, id, exercises, notes })}>
+          Save Workout
         </button>
       </div>
     </div>

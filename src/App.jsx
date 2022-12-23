@@ -1,56 +1,27 @@
-import { useState, useEffect, createContext, useContext } from 'react';
-import { Route, Routes, redirect, Navigate } from 'react-router-dom';
-import Home from './views/Home';
-import { Login } from './views/Signin';
-import { Account } from './views/Account';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import { Login } from './pages/Login';
+import { Protected } from './components/Protected';
 import { Navbar } from './components/Navbar';
-import { AuthContextProvider, UserAuth } from './context/AuthContext';
-import { auth } from './services/firebase';
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-  signOut,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { UserContextProvider } from './context/UserContext';
 
-const UserContext = createContext(null);
-
-function App() {
-  const [user, setUser] = useState(null);
-  const handleLogin = async () => {
-    console.log('click');
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
-      console.log(result.user);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  console.log(user);
-  // useEffect(() => {
-  //   const unsubscribe = auth().onAuthStateChanged((user) => {
-  //     setUser(user);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
-
+export default function App() {
   return (
     <div className="App">
-      <UserContext.Provider value={user}>
+      <UserContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Login handleLogin={handleLogin} />} />
-          <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/home"
+            element={
+              <Protected>
+                <Home />
+              </Protected>
+            }
+          />
         </Routes>
-      </UserContext.Provider>
+      </UserContextProvider>
     </div>
   );
 }
-
-export default App;
-export { UserContext };
