@@ -7,6 +7,7 @@ import {
   deleteWorkout,
 } from '../services/api';
 import { UserAuth } from '../context/UserContext';
+import { WorkoutDateTime } from './WorkoutDateTime';
 
 export default function Workout({
   exerciseOptions,
@@ -50,9 +51,7 @@ export default function Workout({
 
   return (
     <div className="workout__container my-2 p-4 border-2 border-solid border-blue-600">
-      <h2 className="text-center font-bold text-xl">
-        {date} {time}
-      </h2>{' '}
+      <WorkoutDateTime date={date} time={time} />
       <ExerciseSelector
         exerciseOptions={exerciseOptions}
         setExercises={setExercises}

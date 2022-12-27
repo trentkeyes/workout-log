@@ -15,7 +15,7 @@ export default function Home() {
     if (userId) {
       getMyExercises({ userId, setMyExercises });
     }
-  }, []);
+  }, [userId]);
 
   const addMyExercise = (exercise) => {
     if (myExercises.some((element) => element === exercise) || !exercise) {
