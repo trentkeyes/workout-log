@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getMyExercises, saveMyExercise } from '../services/api';
-import AddToMyExercises from '../components/AddToMyExercises';
+import MyExercises from '../components/MyExercises';
 import { Workouts } from './Workouts';
 import Cal from '../components/Cal';
 import { UserAuth } from '../context/UserContext';
@@ -32,7 +32,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-start items-center">
-      {userId && <AddToMyExercises addMyExercise={addMyExercise} />}
+      {userId && <MyExercises addMyExercise={addMyExercise} myExercises={myExercises}/>}
       {userId && <Workouts exerciseOptions={exerciseOptions} userId={userId} />}
       {/* <Cal /> */}
     </div>

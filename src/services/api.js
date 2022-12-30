@@ -91,6 +91,15 @@ const saveMyExercise = async ({ userId, exercise }) => {
   }
 };
 
+const deleteMyExercise = async ({ userId, id }) => {
+  const myExRef = doc(db, 'users', userId, 'myExercises', id);
+  try {
+    await deleteDoc(myExRef);
+  } catch (err) {
+    alert(err);
+  }
+};
+
 const getMyExercises = ({ userId, setMyExercises }) => {
   const q = query(
     collection(db, 'users', userId, 'myExercises'),
@@ -122,6 +131,7 @@ export {
   updateWorkout,
   deleteWorkout,
   saveMyExercise,
+  deleteMyExercise,
   getMyExercises,
   addUser,
 };
