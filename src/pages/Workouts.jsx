@@ -12,8 +12,8 @@ export const Workouts = ({ exerciseOptions, userId }) => {
   console.log('Workouts:', workouts);
 
   return (
-    <div className='flex flex-col items-center my-2'>
-      <button onClick={() => addWorkout(user.uid)}>Add New Workout</button>
+    <div className="flex flex-col items-center my-2">
+      <button onClick={() => addWorkout(userId)}>Add New Workout</button>
       <div>
         {workouts.map((workout) => (
           <Workout

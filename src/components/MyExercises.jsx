@@ -8,7 +8,7 @@ export default function MyExercises({ addMyExercise, myExercises }) {
     setInput(e.target.value);
   };
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-2 items-center mt-2">
       <div className="addMyExercise__div flex gap-2 ">
         <input
           type="text"
