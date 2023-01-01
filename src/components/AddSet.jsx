@@ -4,7 +4,7 @@ export default function AddSet({ handleChange, vals, addSet }) {
       <div className="addSet__reps">
         <input
           type="tel"
-          className="set-input"
+          className="set-input text-center bg-neutral-700"
           name="reps"
           placeholder="Reps"
           value={vals.reps}
@@ -14,7 +14,7 @@ export default function AddSet({ handleChange, vals, addSet }) {
       <div className="addSet__weight">
         <input
           type="tel"
-          className="set-input"
+          className="set-input text-center bg-neutral-700"
           name="weight"
           placeholder="Weight"
           value={vals.weight}

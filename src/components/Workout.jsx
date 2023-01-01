@@ -58,7 +58,7 @@ export default function Workout({
       />
       <div className="exercises__container">{exerciseElements}</div>
       <textarea
-        className="workout__notes indent-1"
+        className="workout__notes indent-1 bg-neutral-700"
         name="notes"
         value={notes}
         onChange={handleNotesChange}
@@ -66,7 +66,10 @@ export default function Workout({
         placeholder="Notes"
       />
       <div className="workout__addExercise-save">
-        <button onClick={() => deleteWorkout({ userId, id })}>
+        <button
+          onClick={() => deleteWorkout({ userId, id })}
+          className="hover:border-red-800"
+        >
           Delete Workout
         </button>
         <button onClick={() => addCopiedWorkout({ userId, exercises, notes })}>

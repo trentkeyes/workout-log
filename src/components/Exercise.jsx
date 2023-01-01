@@ -38,10 +38,18 @@ export default function Exercise({ name, sets, setExercises, removeExercise }) {
   };
   const setsElements = sets.map((set, index) => {
     return (
-      <div key={index}>
+      <div key={index} className="bg-neutral-700 py-0.5 px-1 rounded">
         <p>
-          {index + 1}: {set.reps} @ {set.weight}
-          <button onClick={() => removeSet(set.id)}>Delete</button>
+          <span className="">{index + 1})</span>{' '}
+          <span className="font-bold">
+            {set.reps} X {set.weight}
+          </span>
+          <button
+            onClick={() => removeSet(set.id)}
+            className="ml-2 hover:border-red-800"
+          >
+            X
+          </button>
         </p>
       </div>
     );
@@ -49,7 +57,13 @@ export default function Exercise({ name, sets, setExercises, removeExercise }) {
   return (
     <div className="workout__exercise">
       <h4 className="exercise__title">
-        {name} <button onClick={() => removeExercise(name)}>Delete</button>
+        {name}{' '}
+        <button
+          className="hover:border-red-800"
+          onClick={() => removeExercise(name)}
+        >
+          X
+        </button>
       </h4>
       {setsElements}
       <AddSet

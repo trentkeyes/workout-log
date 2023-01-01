@@ -94,23 +94,13 @@ body {
 }
 
 .set-input {
-  max-width: 2.5rem;
-  text-align: center;
+  max-width: 3.5rem;
 }
 
 .workout__addExercise-save {
   display: flex;
   justify-content: center;
   gap: .5rem;
-}
-
-.exerciseSelector__container {
-  display: flex;
-  gap: .5rem;
-}
-
-.exerciseSelector__selector {
-  font-size: 1rem;
 }
 
 .workout__notes {

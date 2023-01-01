@@ -11,6 +11,7 @@ export const EditMyExercises = ({ myExercises }) => {
         <h3>{exercise.name}</h3>
         <button
           onClick={() => deleteMyExercise({ userId: userId, id: exercise.id })}
+          className="hover:border-red-800"
         >
           Delete
         </button>

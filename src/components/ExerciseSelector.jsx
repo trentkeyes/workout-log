@@ -21,9 +21,9 @@ export default function ExerciseSelector({
     });
   };
   return (
-    <div className="exerciseSelector__container">
+    <div className="flex gap-1">
       <select
-        className="exerciseSelector__selector text-center"
+        className="text-center bg-neutral-700 text-base"
         name="selectExercise"
         id="selectExercise"
         onChange={handleChange}
