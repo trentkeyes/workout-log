@@ -18,7 +18,7 @@ export const UserContextProvider = ({ children }) => {
 
   const googleLogin = () => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+    signInWithPopup(auth, provider);
   };
 
   const logOut = () => {

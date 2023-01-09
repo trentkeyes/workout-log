@@ -10,7 +10,6 @@ export default function Home() {
   const { user } = UserAuth();
   const userId = user.uid;
 
-  console.log('My exercises:', myExercises);
   useEffect(() => {
     if (userId) {
       getMyExercises({ userId, setMyExercises });
@@ -32,7 +31,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-start items-center">
-      {userId && <MyExercises addMyExercise={addMyExercise} myExercises={myExercises}/>}
+      {userId && (
+        <MyExercises addMyExercise={addMyExercise} myExercises={myExercises} />
+      )}
       {userId && <Workouts exerciseOptions={exerciseOptions} userId={userId} />}
       {/* <Cal /> */}
     </div>

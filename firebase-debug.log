@@ -1,0 +1,35 @@
+[debug] [2023-01-05T00:17:19.313Z] ----------------------------------------------------------------------
+[debug] [2023-01-05T00:17:19.317Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js serve --only hosting
+[debug] [2023-01-05T00:17:19.318Z] CLI Version:   11.19.0
+[debug] [2023-01-05T00:17:19.318Z] Platform:      win32
+[debug] [2023-01-05T00:17:19.318Z] Node Version:  v16.17.0
+[debug] [2023-01-05T00:17:19.326Z] Time:          Wed Jan 04 2023 18:17:19 GMT-0600 (Central Standard Time)
+[debug] [2023-01-05T00:17:19.326Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-05T00:17:19.910Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-05T00:17:19.911Z] > authorizing via signed-in user (tkeyes@gmail.com)
+[debug] [2023-01-05T00:17:19.912Z] [iam] checking project workout-log-bc47f for permissions ["firebase.projects.get"]
+[debug] [2023-01-05T00:17:19.917Z] > refreshing access token with scopes: []
+[debug] [2023-01-05T00:17:19.923Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-01-05T00:17:19.924Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-01-05T00:17:20.512Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-01-05T00:17:20.513Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-01-05T00:17:20.556Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/workout-log-bc47f:testIamPermissions [none]
+[debug] [2023-01-05T00:17:20.557Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/workout-log-bc47f:testIamPermissions x-goog-quota-user=projects/workout-log-bc47f
+[debug] [2023-01-05T00:17:20.558Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/workout-log-bc47f:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-01-05T00:17:21.043Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/workout-log-bc47f:testIamPermissions 200
+[debug] [2023-01-05T00:17:21.043Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/workout-log-bc47f:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-01-05T00:17:21.046Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f [none]
+[debug] [2023-01-05T00:17:21.286Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f 200
+[debug] [2023-01-05T00:17:21.287Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f {"projectId":"workout-log-bc47f","projectNumber":"923252550437","displayName":"Workout Log","name":"projects/workout-log-bc47f","resources":{"hostingSite":"workout-log-bc47f"},"state":"ACTIVE","etag":"1_41c9cfa8-a6a6-44a1-8d56-0715063c6898"}
+[debug] [2023-01-05T00:17:21.290Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/workout-log-bc47f/sites 
+[debug] [2023-01-05T00:17:22.074Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/workout-log-bc47f/sites 200
+[debug] [2023-01-05T00:17:22.074Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/workout-log-bc47f/sites {"sites":[{"name":"projects/workout-log-bc47f/sites/workout-log-bc47f","defaultUrl":"https://workout-log-bc47f.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-01-05T00:17:22.075Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f/webApps/-/config [none]
+[debug] [2023-01-05T00:17:22.440Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f/webApps/-/config 200
+[debug] [2023-01-05T00:17:22.441Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f/webApps/-/config {"projectId":"workout-log-bc47f","appId":"1:923252550437:web:7749f5b03db15c131e48cc","storageBucket":"workout-log-bc47f.appspot.com","apiKey":"AIzaSyB_MTIr_wyPH4ehTD0S77PoLEbScRyJg2k","authDomain":"workout-log-bc47f.firebaseapp.com","messagingSenderId":"923252550437","measurementId":"G-9M8VYCW8P1"}
+[debug] [2023-01-05T00:17:22.447Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f [none]
+[debug] [2023-01-05T00:17:22.752Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f 200
+[debug] [2023-01-05T00:17:22.753Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/workout-log-bc47f {"projectId":"workout-log-bc47f","projectNumber":"923252550437","displayName":"Workout Log","name":"projects/workout-log-bc47f","resources":{"hostingSite":"workout-log-bc47f"},"state":"ACTIVE","etag":"1_41c9cfa8-a6a6-44a1-8d56-0715063c6898"}
+[info] i  hosting[workout-log-bc47f]: Serving hosting files from: dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist\u001b[22m"}}
+[info] +  hosting[workout-log-bc47f]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
