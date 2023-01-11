@@ -33,4 +33,4 @@ Keep in mind that I have access to any data that you add. If you'd like me to de
 
 ### Screenshot
 
-![Workout log app screenshot](\src\assets\workout app.png)
+![Workout log app screenshot](/src/assets/workout%20app.png)
